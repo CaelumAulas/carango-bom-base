@@ -5,10 +5,14 @@ import ListagemMarcas from '../pages/ListagemMarcas';
 
 describe('Listagem de Marcas', () => {
   it('Deve renderizar o componente', () => {
-    render(<ListagemMarcas />);
+    const { getByText, getByLabelText } = render(<ListagemMarcas />);
 
-    expect(screen.getByTestId('btn-cadastro')).toBeInTheDocument();
-    expect(screen.getByTestId('btn-excluir')).toBeInTheDocument();
-    expect(screen.getByTestId('btn-alterar')).toBeInTheDocument();
+    const excluirBtn = getByText('Excluir');
+    const alterarBtn = getByText('Alterar');
+    const cadastroBtn = getByLabelText('add');
+
+    expect(cadastroBtn).toBeInTheDocument();
+    expect(excluirBtn).toBeInTheDocument();
+    expect(alterarBtn).toBeInTheDocument();
   });
 });
