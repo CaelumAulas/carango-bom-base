@@ -28,6 +28,10 @@ function ListagemMarcas() {
   const classes = useStyles();
   const history = useHistory();
 
+  function cadastrar() {
+    history.push('/cadastro-marca');
+  }
+
   function alterar() {
     history.push('/alteracao-marca/' + marcaSelecionada.id);
   }
@@ -58,6 +62,15 @@ function ListagemMarcas() {
       />
 
       <div className={classes.actionsToolbar}>
+        <Button
+          data-testid="btn-cadastrar"
+          className={classes.actions}
+          variant="contained"
+          color="primary"
+          onClick={() => cadastrar()}
+        >
+          Incluir
+        </Button>
         <Button
           data-testid="btn-excluir"
           className={classes.actions}
