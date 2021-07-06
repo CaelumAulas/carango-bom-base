@@ -59,6 +59,7 @@ export default function Tabela({
           Excluir
         </Button>
         <Button
+          data-testid="btn-alterar"
           className={classes.actions}
           variant="contained"
           color="primary"
