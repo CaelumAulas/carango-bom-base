@@ -1,6 +1,6 @@
 import React from "react";
 import { screen, render, act } from "@testing-library/react";
-import Tabela from "../components/Tabela";
+import Table from "./Table";
 import userEvent from '@testing-library/user-event'
 
 const brandsMock = [{ id: 0, nome: "Fiat" }];
@@ -9,7 +9,7 @@ const mockFun = jest.fn();
 
 const setup = () =>
   render(
-    <Tabela
+    <Table
       linhas={brandsMock}
       colunas={colunas}
       addItem={() => {}}
@@ -24,7 +24,7 @@ beforeEach(async () => {
   await act(async () => setup());
 });
 
-describe("Tabela", () => {
+describe("<Table />", () => {
   it("Deve renderizar o componente com colunas", () => {
     const excluirBtn = screen.getByTestId("btn-excluir");
     const alterarBtn = screen.getByTestId("btn-alterar");

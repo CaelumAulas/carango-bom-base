@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Tabela({
+export default function Table({
   colunas,
   linhas,
   rowSelectedFunction,

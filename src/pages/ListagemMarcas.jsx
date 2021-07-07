@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import MarcaService from '../services/MarcaService';
 
-import Tabela from '../components/Tabela';
+import Table from '../components/Table/Table';
 
 const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
@@ -36,7 +36,7 @@ function ListagemMarcas() {
 
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <Tabela
+      <Table
         linhas={marcas}
         colunas={colunas}
         addItem={cadastrar}
