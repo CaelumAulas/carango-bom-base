@@ -10,8 +10,8 @@ const mockFun = jest.fn();
 const setup = () =>
   render(
     <Table
-      linhas={brandsMock}
-      colunas={colunas}
+      rows={brandsMock}
+      columns={colunas}
       addItem={() => {}}
       updateItem={() => {}}
       deleteItem={() => {}}

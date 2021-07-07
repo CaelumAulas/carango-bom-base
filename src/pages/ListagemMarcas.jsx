@@ -37,8 +37,8 @@ function ListagemMarcas() {
   return (
     <div style={{ height: 300, width: '100%' }}>
       <Table
-        linhas={marcas}
-        colunas={colunas}
+        rows={marcas}
+        columns={colunas}
         addItem={cadastrar}
         updateItem={alterar}
         deleteItem={excluir}
