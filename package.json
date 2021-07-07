@@ -53,6 +53,7 @@
       "!src/App.js",
       "!src/reportWebVitals.js",
       "!src/Constants.js"
-    ]
+    ],
+    "resetMocks": false
   }
 }

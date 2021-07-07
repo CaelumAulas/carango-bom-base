@@ -6,8 +6,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import CadastroMarca from './pages/CadastroMarca';
-import ListagemMarcas from './pages/ListagemMarcas';
-import Login from './pages/Login';
+import BrandList from './pages/BrandList/BrandList';
+import Login from './pages/Login/Login';
 
 const muiTheme = createMuiTheme(
   {
@@ -55,7 +55,7 @@ function App() {
                 <CadastroMarca></CadastroMarca>
               </Route>
               <Route path="/marcas">
-                <ListagemMarcas></ListagemMarcas>
+                <BrandList></BrandList>
               </Route>
               <Route path="/">
                 <Login></Login>

@@ -4,7 +4,7 @@ import BrandService from '../../services/BrandService';
 
 import Table from '../../components/Table/Table';
 
-const columns = [{ field: 'name', headerName: 'Marca', width: 200 }];
+const columns = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
 function BrandList() {
   const [brands, setBrands] = useState([]);
@@ -12,18 +12,17 @@ function BrandList() {
   const history = useHistory();
 
   function create() {
-    history.push('/cadastro-Brand');
+    history.push('/cadastro-marca');
   }
 
   function update() {
-    history.push('/alteracao-Brand/' + selectedBrand.id);
+    history.push('/alteracao-marca/' + selectedBrand.id);
   }
 
   function deleteBrand() {
-    BrandService.delete(selectedBrand).then(() => {
-      setSelectedBrand(null);
-      fetchBrands();
-    });
+    BrandService.delete(selectedBrand);
+    setBrands(brands.filter((brand) => brand.id !== selectedBrand.id));
+    setSelectedBrand(null);
   }
 
   useEffect(() => fetchBrands(), []);
