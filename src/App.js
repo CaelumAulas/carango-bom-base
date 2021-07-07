@@ -7,14 +7,18 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import CadastroMarca from './pages/CadastroMarca';
 import ListagemMarcas from './pages/ListagemMarcas';
+import Login from './pages/Login';
 
-const muiTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: blue[900],
-    }
+const muiTheme = createMuiTheme(
+  {
+    palette: {
+      primary: {
+        main: blue[900],
+      },
+    },
   },
-}, ptBR);
+  ptBR
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-
   const classes = useStyles();
 
   return (
@@ -48,11 +51,14 @@ function App() {
               <Route path="/cadastro-marca">
                 <CadastroMarca></CadastroMarca>
               </Route>
-              <Route path='/alteracao-marca/:id'>
+              <Route path="/alteracao-marca/:id">
                 <CadastroMarca></CadastroMarca>
               </Route>
-              <Route path="/">
+              <Route path="/marcas">
                 <ListagemMarcas></ListagemMarcas>
+              </Route>
+              <Route path="/">
+                <Login></Login>
               </Route>
             </Switch>
           </Container>
