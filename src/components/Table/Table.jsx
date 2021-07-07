@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Button } from '@material-ui/core';
-import './table.css'
+import './Table.css'
 
 
 export default function Table({
