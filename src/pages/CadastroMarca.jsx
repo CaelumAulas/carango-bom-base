@@ -1,16 +1,25 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import useErros from '../hooks/useErros';
 import MarcaService from '../services/MarcaService';
 
+const useStyles = makeStyles(() => ({
+    actionsToolbar: {
+        float: 'right',
+    },
+    actions: {
+        top: '10px',
+        marginLeft: '10px',
+    },
+}));
+
 function CadastroMarca() {
 
     const [marca, setMarca] = useState("");
-
     const history = useHistory();
-
     const { id } = useParams();
+    const classes = useStyles();
 
     const validacoes = {
         marca: dado => {
@@ -28,13 +37,12 @@ function CadastroMarca() {
         history.goBack();
     }
 
-    // TODO: Avaliar remover disable na próxima linha
     useEffect(() => {
         if (id) {
             MarcaService.consultar(id)
                 .then(m => setMarca(m.nome));
         }
-    }, [id]); // eslint-disable-line
+    }, [id]);
 
     return (
         <form onSubmit={(event) => {
@@ -70,20 +78,24 @@ function CadastroMarca() {
                 margin="normal"
             />
 
-            <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                disabled={!possoEnviar()}>
-                {id ? 'Alterar' : 'Cadastrar'}
-            </Button>
+            <div className={classes.actionsToolbar}>
+                <Button
+                    variant="contained"
+                    className={classes.actions}
+                    color="primary"
+                    type="submit"
+                    disabled={!possoEnviar()}>
+                    {id ? 'Alterar' : 'Cadastrar'}
+                </Button>
 
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={cancelar}>
-                Cancelar
-            </Button>
+                <Button
+                    variant="contained"
+                    className={classes.actions}
+                    color="secondary"
+                    onClick={cancelar}>
+                    Cancelar
+                </Button>
+            </div>
         </form>
     );
 }
