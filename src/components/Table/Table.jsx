@@ -1,47 +1,32 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import AddIcon from '@material-ui/icons/Add';
-import { Button, Fab, makeStyles } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import './Table.css'
 
-const useStyles = makeStyles(() => ({
-  fab: {
-    position: 'absolute',
-    bottom: '100px',
-    right: '100px',
-  },
-  actionsToolbar: {
-    float: 'right',
-  },
-  actions: {
-    top: '10px',
-    marginLeft: '10px',
-  },
-}));
 
-export default function Tabela({
-  colunas,
-  linhas,
+export default function Table({
+  columns,
+  rows,
   rowSelectedFunction,
   selectedItem,
   updateItem,
   deleteItem,
   addItem,
 }) {
-  const classes = useStyles();
 
   return (
     <>
       <DataGrid
-        rows={linhas}
-        columns={colunas}
+        rows={rows}
+        columns={columns}
         onRowSelected={(gridSelection) =>
           rowSelectedFunction(gridSelection.data)
         }
       />
-      <div className={classes.actionsToolbar}>
+      <div className='actionsToolbar'>
         <Button
           data-testid="btn-cadastrar"
-          className={classes.actions}
+          className='actions'
           variant="contained"
           color="primary"
           onClick={addItem}
@@ -50,7 +35,7 @@ export default function Tabela({
         </Button>
         <Button
           data-testid="btn-excluir"
-          className={classes.actions}
+          className='actions'
           variant="contained"
           color="secondary"
           disabled={!selectedItem}
@@ -60,7 +45,7 @@ export default function Tabela({
         </Button>
         <Button
           data-testid="btn-alterar"
-          className={classes.actions}
+          className='actions'
           variant="contained"
           color="primary"
           disabled={!selectedItem}
@@ -69,15 +54,6 @@ export default function Tabela({
           Alterar
         </Button>
       </div>
-
-      <Fab
-        color="primary"
-        aria-label="add"
-        className={classes.fab}
-        onClick={addItem}
-      >
-        <AddIcon />
-      </Fab>
     </>
   );
 }
