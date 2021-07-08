@@ -1,15 +1,15 @@
 const VehicleService = {
-  create(marca) {
+  create(vehicle) {
     return fetch('https://carango-bom-api.herokuapp.com/veiculos', {
       method: 'POST',
-      body: JSON.stringify(marca),
+      body: JSON.stringify(vehicle),
     }).then((r) => r.json());
   },
 
-  update(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + marca.id, {
+  update(vehicle) {
+    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id, {
       method: 'PUT',
-      body: JSON.stringify(marca),
+      body: JSON.stringify(vehicle),
     }).then((r) => r.json());
   },
 
@@ -23,8 +23,8 @@ const VehicleService = {
       r.json()
     );
   },
-  delete(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + marca.id, {
+  delete(vehicle) {
+    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id, {
       method: 'DELETE',
     }).then((r) => r.json());
   },
