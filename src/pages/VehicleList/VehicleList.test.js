@@ -8,29 +8,22 @@ import VehicleList from './VehicleList';
 
 const vehiclesMock = [{ id: 0, modelo: 'Fusca', valor: 800, ano: 2030, marca: {id:0, nome:'Fiat'} }];
 jest.mock('../../services/VehicleService', () => ({
-  getAll: jest.fn().mockResolvedValue(vehiclesMock),
   delete: jest.fn().mockResolvedValue(),
+  getAll: jest.fn().mockResolvedValue(vehiclesMock),
 }));
 
 describe('<VehicleList />', () => {
   const history = createMemoryHistory();
-  const setup = () =>
-    render(
-      <Router history={history}>
-        <VehicleList />
-      </Router>
-    );
 
   beforeEach(async () => {
     jest.clearAllMocks();
-    await act(async () => setup());
+    await act(async () => render(
+      <Router history={history}>
+        <VehicleList />
+      </Router>
+    ));
   });
 
-  it('Should redirect to "cadastro-veiculo" when press "incluir" button', () => {
-    const createBtn = screen.getByRole('button', { name: 'Incluir' });
-    userEvent.click(createBtn);
-    expect(history.location.pathname).toBe('/cadastro-veiculo');
-  });
   it('Should redirect to vehicle update route when user click on update button', async () => {
     const updateBtn = screen.getByRole('button', { name: 'Alterar' });
     const vehicleSelected = await screen.findByText(vehiclesMock[0].modelo);
@@ -45,6 +38,11 @@ describe('<VehicleList />', () => {
     userEvent.click(vehicleSelected);
     userEvent.click(deleteBtn);
     expect(vehicleSelected).not.toBeInTheDocument();
+  });
+  it('Should redirect to "cadastro-veiculo" when press "incluir" button', () => {
+    const createBtn = screen.getByRole('button', { name: 'Incluir' });
+    userEvent.click(createBtn);
+    expect(history.location.pathname).toBe('/cadastro-veiculo');
   });
   it('Should render list lines', async () => {
     expect(await screen.findByText(vehiclesMock[0].modelo)).toBeInTheDocument();
