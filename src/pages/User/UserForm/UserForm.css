@@ -1,0 +1,33 @@
+.root {
+  display: "flex";
+}
+
+.title {
+  flex-grow: 1;
+}
+
+content {
+  flex-grow: 1;
+  height: "100vh";
+  overflow: "auto";
+}
+
+.container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.containerButtons {
+  display: "flex";
+  width: "30%";
+  justify-content: "space-between";
+  float: "right";
+  padding-top: 10px;
+}
+
+.paper {
+  padding: 15px;
+  display: "flex";
+  overflow: "auto";
+  flex-direction: "column";
+}

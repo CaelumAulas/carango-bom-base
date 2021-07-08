@@ -1,31 +1,31 @@
-import { Button, TextField, makeStyles } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
-import useErros from '../hooks/useErros';
-import BrandService from '../services/BrandService';
+import { Button, TextField, makeStyles } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
+import useErros from "../../../hooks/useErros";
+import BrandService from "../../../services/BrandService";
 
 const useStyles = makeStyles(() => ({
   actionsToolbar: {
-    float: 'right',
+    float: "right",
   },
   actions: {
-    top: '10px',
-    marginLeft: '10px',
+    top: "10px",
+    marginLeft: "10px",
   },
 }));
 
-function CadastroMarca() {
-  const [marca, setMarca] = useState('');
+export default function BrandForm() {
+  const [brand, setBrand] = useState("");
   const history = useHistory();
   const { id } = useParams();
   const classes = useStyles();
 
   const validacoes = {
-    marca: (dado) => {
+    brand: (dado) => {
       if (dado && dado.length >= 3) {
         return { valido: true };
       } else {
-        return { valido: false, texto: 'Marca deve ter ao menos 3 letras.' };
+        return { valido: false, texto: "Marca deve ter ao menos 3 letras." };
       }
     },
   };
@@ -38,7 +38,7 @@ function CadastroMarca() {
 
   useEffect(() => {
     if (id) {
-      BrandService.getById(id).then((m) => setMarca(m.nome));
+      BrandService.getById(id).then((m) => setBrand(m.nome));
     }
   }, [id]);
 
@@ -48,12 +48,12 @@ function CadastroMarca() {
         event.preventDefault();
         if (possoEnviar()) {
           if (id) {
-            BrandService.update({ id, nome: marca }).then((res) => {
+            BrandService.update({ id, nome: brand }).then((res) => {
               history.goBack();
             });
           } else {
-            BrandService.create({ nome: marca }).then((res) => {
-              setMarca('');
+            BrandService.create({ nome: brand }).then((res) => {
+              setBrand("");
               history.goBack();
             });
           }
@@ -61,13 +61,13 @@ function CadastroMarca() {
       }}
     >
       <TextField
-        value={marca}
-        onChange={(evt) => setMarca(evt.target.value)}
+        value={brand}
+        onChange={(evt) => setBrand(evt.target.value)}
         onBlur={validarCampos}
-        helperText={erros.marca.texto}
-        error={!erros.marca.valido}
-        name="marca"
-        id="marca"
+        helperText={erros.brand.texto}
+        error={!erros.brand.valido}
+        name="brand"
+        id="brand"
         label="Marca"
         type="text"
         variant="outlined"
@@ -84,7 +84,7 @@ function CadastroMarca() {
           type="submit"
           disabled={!possoEnviar()}
         >
-          {id ? 'Alterar' : 'Cadastrar'}
+          {id ? "Alterar" : "Cadastrar"}
         </Button>
 
         <Button
@@ -99,5 +99,3 @@ function CadastroMarca() {
     </form>
   );
 }
-
-export default CadastroMarca;

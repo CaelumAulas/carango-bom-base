@@ -1,33 +1,33 @@
 const BrandService = {
-  create(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas', {
-      method: 'POST',
-      body: JSON.stringify(marca),
+  create(brand) {
+    return fetch("https://carango-bom-api.herokuapp.com/marcas", {
+      method: "POST",
+      body: JSON.stringify(brand),
     }).then((r) => r.json());
   },
 
-  update(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas/' + marca.id, {
-      method: 'PUT',
-      body: JSON.stringify(marca),
+  update(brand) {
+    return fetch("https://carango-bom-api.herokuapp.com/marcas/" + brand.id, {
+      method: "PUT",
+      body: JSON.stringify(brand),
     }).then((r) => r.json());
   },
 
   getById(id) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas/' + id).then(
+    return fetch("https://carango-bom-api.herokuapp.com/marcas/" + id).then(
       (r) => r.json()
     );
   },
 
   getAll() {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas').then((r) =>
+    return fetch("https://carango-bom-api.herokuapp.com/marcas").then((r) =>
       r.json()
     );
   },
 
-  delete(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas/' + marca.id, {
-      method: 'DELETE',
+  delete(brand) {
+    return fetch("https://carango-bom-api.herokuapp.com/marcas/" + brand.id, {
+      method: "DELETE",
     }).then((r) => r.json());
   },
 };

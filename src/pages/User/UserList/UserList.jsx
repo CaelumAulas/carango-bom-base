@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import UsuarioService from '../services/UsuarioService';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import UsuarioService from "../services/UsuarioService";
 
-import Tabela from '../components/Tabela';
+import Tabela from "../components/Tabela";
 
-const colunas = [{ field: 'nome', headerName: 'Usuario', width: 200 }];
+const colunas = [{ field: "nome", headerName: "Usuario", width: 200 }];
 
-function ListagemUsuarios() {
+export default function UserList() {
   const [usuarios, setUsuarios] = useState([]);
   const [usuarioSelecionado, setUsuarioSelecionado] = useState();
   const history = useHistory();
 
   function cadastrar() {
-    history.push('/cadastro-usuario');
+    history.push("/cadastro-usuario");
   }
 
   function alterar() {
-    history.push('/alteracao-usuario/' + usuarioSelecionado.id);
+    history.push("/alteracao-usuario/" + usuarioSelecionado.id);
   }
 
   function excluir() {
@@ -33,7 +33,7 @@ function ListagemUsuarios() {
   }
 
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div style={{ height: 300, width: "100%" }}>
       <Tabela
         linhas={usuarios}
         colunas={colunas}
@@ -46,5 +46,3 @@ function ListagemUsuarios() {
     </div>
   );
 }
-
-export default ListagemUsuarios;
