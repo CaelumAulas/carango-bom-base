@@ -42,20 +42,20 @@ describe('<VehicleList />', () => {
   });
   it('Should redirect to vehicle update route when user click on update button', async () => {
     const updateBtn = screen.getByRole('button', { name: 'Alterar' });
-    const vehicleSelected = await screen.findByText('Fusca');
+    const vehicleSelected = await screen.findByText(vehiclesMock[0].modelo);
     userEvent.click(vehicleSelected);
     userEvent.click(updateBtn);
 
-    expect(history.location.pathname).toBe('/alteracao-veiculo/0');
+    expect(history.location.pathname).toBe('/alteracao-veiculo/'+vehiclesMock[0].id);
   });
   it('Should delete item', async () => {
     const deleteBtn = screen.getByRole('button', { name: 'Excluir' });
-    const vehicleSelected = await screen.findByText('Fusca');
+    const vehicleSelected = await screen.findByText(vehiclesMock[0].modelo);
     userEvent.click(vehicleSelected);
     userEvent.click(deleteBtn);
     expect(vehicleSelected).not.toBeInTheDocument();
   });
   it('Should render list lines', async () => {
-    expect(await screen.findByText('Fusca')).toBeInTheDocument();
+    expect(await screen.findByText(vehiclesMock[0].modelo)).toBeInTheDocument();
   });
 });
