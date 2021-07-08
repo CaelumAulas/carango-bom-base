@@ -1,8 +1,7 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Button } from '@material-ui/core';
-import './Table.css'
-
+import './Table.css';
 
 export default function Table({
   columns,
@@ -13,7 +12,6 @@ export default function Table({
   deleteItem,
   addItem,
 }) {
-
   return (
     <>
       <DataGrid
@@ -23,10 +21,10 @@ export default function Table({
           rowSelectedFunction(gridSelection.data)
         }
       />
-      <div className='actionsToolbar'>
+      <div className="actionsToolbar">
         <Button
           data-testid="btn-cadastrar"
-          className='actions'
+          className="actions"
           variant="contained"
           color="primary"
           onClick={addItem}
@@ -35,7 +33,7 @@ export default function Table({
         </Button>
         <Button
           data-testid="btn-excluir"
-          className='actions'
+          className="actions"
           variant="contained"
           color="secondary"
           disabled={!selectedItem}
@@ -45,7 +43,7 @@ export default function Table({
         </Button>
         <Button
           data-testid="btn-alterar"
-          className='actions'
+          className="actions"
           variant="contained"
           color="primary"
           disabled={!selectedItem}
