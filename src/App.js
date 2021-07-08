@@ -8,6 +8,7 @@ import './App.css';
 import CadastroMarca from './pages/CadastroMarca';
 import BrandList from './pages/BrandList/BrandList';
 import Login from './pages/Login/Login';
+import CadastroUsuario from './pages/CadastroUsuario';
 
 const muiTheme = createMuiTheme(
   {
@@ -59,6 +60,9 @@ function App() {
               </Route>
               <Route path="/">
                 <Login></Login>
+              <Route path="/cadastro-usuario">
+                <CadastroUsuario></CadastroUsuario>
+              </Route>
               </Route>
             </Switch>
           </Container>
