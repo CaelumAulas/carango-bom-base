@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import CadastroMarca from './pages/CadastroMarca';
 import BrandList from './pages/BrandList/BrandList';
+import VehicleList from './pages/VehicleList/VehicleList';
 import Login from './pages/Login/Login';
 import CadastroUsuario from './pages/CadastroUsuario';
 
@@ -57,6 +58,9 @@ function App() {
               </Route>
               <Route path="/marcas">
                 <BrandList></BrandList>
+              </Route>
+              <Route path="/veiculos">
+                <VehicleList />
               </Route>
               <Route path="/">
                 <Login></Login>
