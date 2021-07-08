@@ -49,7 +49,7 @@ function App() {
           <div className={classes.toolbar} />
           <Container component="article" maxWidth="md">
             <Switch>
-              <Route path="/">
+              <Route exact path="/">
                 <Login></Login>
               </Route>
               <Route path="/cadastro-marca">
