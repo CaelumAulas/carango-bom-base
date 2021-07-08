@@ -1,47 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import UsuarioService from "../services/UsuarioService";
+import UserService from "../../../services/UserService";
 
-import Tabela from "../components/Tabela";
+import Table from "../../../components/Table/Table";
 
-const colunas = [{ field: "nome", headerName: "Usuario", width: 200 }];
+const columns = [{ field: "name", headerName: "Usuario", width: 200 }];
 
 export default function UserList() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [usuarioSelecionado, setUsuarioSelecionado] = useState();
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState();
   const history = useHistory();
 
-  function cadastrar() {
+  function create() {
     history.push("/cadastro-usuario");
   }
 
-  function alterar() {
-    history.push("/alteracao-usuario/" + usuarioSelecionado.id);
+  function update() {
+    history.push("/alteracao-usuario/" + selectedUser.id);
   }
 
-  function excluir() {
-    UsuarioService.excluir(usuarioSelecionado).then(() => {
-      setUsuarioSelecionado(null);
-      carregarUsuarios();
+  function deleteUser() {
+    UserService.delete(selectedUser).then(() => {
+      setSelectedUser(null);
+      fetchUsers();
     });
   }
 
-  useEffect(() => carregarUsuarios(), []);
+  useEffect(() => fetchUsers(), []);
 
-  function carregarUsuarios() {
-    UsuarioService.listar().then((dados) => setUsuarios(dados));
+  function fetchUsers() {
+    UserService.getAll().then((data) => setUsers(data));
   }
 
   return (
     <div style={{ height: 300, width: "100%" }}>
-      <Tabela
-        linhas={usuarios}
-        colunas={colunas}
-        addItem={cadastrar}
-        updateItem={alterar}
-        deleteItem={excluir}
-        selectedItem={usuarioSelecionado}
-        rowSelectedFunction={setUsuarioSelecionado}
+      <Table
+        linhas={users}
+        colunas={columns}
+        addItem={create}
+        updateItem={update}
+        deleteItem={deleteUser}
+        selectedItem={selectedUser}
+        rowSelectedFunction={setSelectedUser}
       />
     </div>
   );
