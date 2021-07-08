@@ -26,15 +26,6 @@ describe('<VehicleList />', () => {
     await act(async () => setup());
   });
 
-  it('Should render the component', async () => {
-    const deleteBtn = screen.getByRole('button', { name: 'Excluir' });
-    const updateBtn = screen.getByRole('button', { name: 'Alterar' });
-    const createBtn = screen.getByRole('button', { name: 'Incluir' });
-
-    expect(createBtn).toBeInTheDocument();
-    expect(deleteBtn).toBeInTheDocument();
-    expect(updateBtn).toBeInTheDocument();
-  });
   it('Should redirect to "cadastro-veiculo" when press "incluir" button', () => {
     const createBtn = screen.getByRole('button', { name: 'Incluir' });
     userEvent.click(createBtn);
