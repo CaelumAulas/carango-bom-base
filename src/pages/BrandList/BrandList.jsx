@@ -8,7 +8,7 @@ const columns = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
 function BrandList() {
   const [brands, setBrands] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState();
+  const [selectedBrand, setSelectedBrand] = useState(null);
   const history = useHistory();
 
   function create() {
