@@ -6,16 +6,20 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import CadastroMarca from './pages/CadastroMarca';
+import BrandList from './pages/BrandList/BrandList';
+import Login from './pages/Login/Login';
 import CadastroUsuario from './pages/CadastroUsuario';
-import ListagemMarcas from './pages/ListagemMarcas';
 
-const muiTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: blue[900],
-    }
+const muiTheme = createMuiTheme(
+  {
+    palette: {
+      primary: {
+        main: blue[900],
+      },
+    },
   },
-}, ptBR);
+  ptBR
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-
   const classes = useStyles();
 
   return (
@@ -49,15 +52,17 @@ function App() {
               <Route path="/cadastro-marca">
                 <CadastroMarca></CadastroMarca>
               </Route>
-              <Route path='/alteracao-marca/:id'>
+              <Route path="/alteracao-marca/:id">
                 <CadastroMarca></CadastroMarca>
               </Route>
+              <Route path="/marcas">
+                <BrandList></BrandList>
+              </Route>
+              <Route path="/">
+                <Login></Login>
               <Route path="/cadastro-usuario">
                 <CadastroUsuario></CadastroUsuario>
               </Route>
-              <Route path="/">
-                {/* TODO : adicionar Home                 */}
-                <ListagemMarcas></ListagemMarcas>
               </Route>
             </Switch>
           </Container>
