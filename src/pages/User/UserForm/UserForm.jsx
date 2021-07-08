@@ -106,7 +106,7 @@ export default function UserForm() {
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      {id ? "Alterar" : "Cadastrar"}
+                      {id ? "Alterar" : "Incluir"}
                     </Button>
                   </Grid>
                   <Grid item sm={2}>
