@@ -6,6 +6,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import CadastroMarca from './pages/CadastroMarca';
+import CadastroUsuario from './pages/CadastroUsuario';
 import ListagemMarcas from './pages/ListagemMarcas';
 
 const muiTheme = createMuiTheme({
@@ -51,7 +52,11 @@ function App() {
               <Route path='/alteracao-marca/:id'>
                 <CadastroMarca></CadastroMarca>
               </Route>
+              <Route path="/cadastro-usuario">
+                <CadastroUsuario></CadastroUsuario>
+              </Route>
               <Route path="/">
+                {/* TODO : adicionar Home                 */}
                 <ListagemMarcas></ListagemMarcas>
               </Route>
             </Switch>
