@@ -8,6 +8,7 @@ import './App.css';
 import SignUp from './pages/SignUp/SignUp';
 import BrandList from './pages/Brand/BrandList/BrandList';
 import BrandRegister from './pages/Brand/BrandRegister/BrandRegister';
+import VehicleList from './pages/VehicleList/VehicleList';
 import Login from './pages/Login/Login';
 
 const muiTheme = createMuiTheme(
@@ -63,6 +64,12 @@ function App() {
               </Route>
               <Route path="/cadastrar">
                 <SignUp></SignUp>
+              </Route>
+              <Route path="/veiculos">
+                <VehicleList />
+              </Route>
+              <Route path="/">
+                <Login></Login>
               </Route>
             </Switch>
           </Container>

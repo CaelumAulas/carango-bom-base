@@ -35,27 +35,33 @@ describe('<BrandList />', () => {
     expect(deleteBtn).toBeInTheDocument();
     expect(updateBtn).toBeInTheDocument();
   });
+
   it('Should redirect to "cadastro-marca" when press "incluir" button', () => {
     const createBtn = screen.getByRole('button', { name: 'Incluir' });
     userEvent.click(createBtn);
     expect(history.location.pathname).toBe('/marca/cadastro-marca');
   });
+
   it('Should redirect to brand update route when user click on update button', async () => {
     const updateBtn = screen.getByRole('button', { name: 'Alterar' });
-    const brandSelected = await screen.findByText('Fiat');
+    const brandSelected = await screen.findByText(brandsMock[0].nome);
     userEvent.click(brandSelected);
     userEvent.click(updateBtn);
 
-    expect(history.location.pathname).toBe('/marca/alteracao-marca/0');
+    expect(history.location.pathname).toBe(
+      '/marca/alteracao-marca/' + brandsMock[0].id
+    );
   });
+
   it('Should delete item', async () => {
     const deleteBtn = screen.getByRole('button', { name: 'Excluir' });
-    const brandSelected = await screen.findByText('Fiat');
+    const brandSelected = await screen.findByText(brandsMock[0].nome);
     userEvent.click(brandSelected);
     userEvent.click(deleteBtn);
     expect(brandSelected).not.toBeInTheDocument();
   });
+
   it('Should render list lines', async () => {
-    expect(await screen.findByText('Fiat')).toBeInTheDocument();
+    expect(await screen.findByText(brandsMock[0].nome)).toBeInTheDocument();
   });
 });
