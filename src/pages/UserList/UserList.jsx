@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import UserService from '../../../services/UserService';
+import UserService from '../../services/UserService';
 
-import Table from '../../../components/Table/Table';
+import Table from '../../components/Table/Table';
 
-const columns = [{ field: 'name', headerName: 'Usuario', width: 200 }];
+const columns = [{ field: 'name', headerName: 'Nome', width: 200 }];
 
 export default function UserList() {
   const [users, setUsers] = useState([]);

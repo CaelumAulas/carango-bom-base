@@ -36,30 +36,29 @@ function BrandRegister() {
     history.push('/marcas');
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (possoEnviar()) {
+      if (id) {
+        BrandService.update({ id, nome: brand }).then((res) => {
+          history.push('/marcas');
+        });
+      } else {
+        BrandService.create({ nome: brand }).then((res) => {
+          history.push('/marcas');
+        });
+      }
+    }
+  }
+
   useEffect(() => {
     if (id) {
-      BrandService.getById(id).then((m) => setBrand(m.nome));
+      BrandService.getById(id).then((response) => setBrand(response.nome));
     }
   }, [id]);
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (possoEnviar()) {
-          if (id) {
-            BrandService.update({ id, nome: brand }).then((res) => {
-              history.goBack();
-            });
-          } else {
-            BrandService.create({ nome: brand }).then((res) => {
-              setBrand('');
-              history.push('/marcas');
-            });
-          }
-        }
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <TextField
         value={brand}
         onChange={(evt) => setBrand(evt.target.value)}
@@ -72,7 +71,6 @@ function BrandRegister() {
         type="text"
         variant="outlined"
         fullWidth
-        required
         margin="normal"
       />
 

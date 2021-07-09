@@ -58,6 +58,7 @@ describe('<BrandList />', () => {
     const brandSelected = await screen.findByText(brandsMock[0].nome);
     userEvent.click(brandSelected);
     userEvent.click(deleteBtn);
+
     expect(brandSelected).not.toBeInTheDocument();
   });
 

@@ -18,16 +18,6 @@ export default function SignUp() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    if (name !== '' && password !== '' && reqPassword !== '') {
-      if (password !== reqPassword) {
-        alert('As senhas não estão iguais.');
-      } else {
-        history.push('/usuarios');
-      }
-    } else {
-      alert('Preencha todos os dados.');
-    }
   }
 
   useEffect(() => {

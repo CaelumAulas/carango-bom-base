@@ -6,6 +6,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import SignUp from './pages/SignUp/SignUp';
+import UserList from './pages/UserList/UserList';
 import BrandList from './pages/Brand/BrandList/BrandList';
 import BrandRegister from './pages/Brand/BrandRegister/BrandRegister';
 import VehicleList from './pages/VehicleList/VehicleList';
@@ -67,6 +68,9 @@ function App() {
               </Route>
               <Route path="/veiculos">
                 <VehicleList />
+              </Route>
+              <Route path="/usuarios">
+                <UserList />
               </Route>
               <Route path="/">
                 <Login></Login>
