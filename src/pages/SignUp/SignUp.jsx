@@ -1,18 +1,12 @@
 import { Grid, Button, Paper, TextField, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import useErros from '../../hooks/useErros';
 import UserService from '../../services/UserService';
 import './SignUp.css';
 
 export default function SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
-    const data = {
-      name: name,
-      password: password,
-      reqPassword: reqPassword,
-    };
 
     if (name !== '' && password !== '' && reqPassword !== '') {
       if (password !== reqPassword) {
@@ -29,8 +23,6 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [reqPassword, setReqPassword] = useState('');
   const { id } = useParams();
-
-  const [erros, validarCampos, possoEnviar] = useErros();
 
   function cancelar() {
     window.location.href = '/usuarios';
