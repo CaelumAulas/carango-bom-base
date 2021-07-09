@@ -1,21 +1,21 @@
-import { Button, TextField, makeStyles } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
-import useErros from "../../../hooks/useErros";
-import BrandService from "../../../services/BrandService";
+import { Button, TextField, makeStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
+import useErros from '../../../hooks/useErros';
+import BrandService from '../../../services/BrandService';
 
 const useStyles = makeStyles(() => ({
   actionsToolbar: {
-    float: "right",
+    float: 'right',
   },
   actions: {
-    top: "10px",
-    marginLeft: "10px",
+    top: '10px',
+    marginLeft: '10px',
   },
 }));
 
-export default function BrandForm() {
-  const [brand, setBrand] = useState("");
+function BrandRegister() {
+  const [brand, setBrand] = useState('');
   const history = useHistory();
   const { id } = useParams();
   const classes = useStyles();
@@ -25,7 +25,7 @@ export default function BrandForm() {
       if (dado && dado.length >= 3) {
         return { valido: true };
       } else {
-        return { valido: false, texto: "Marca deve ter ao menos 3 letras." };
+        return { valido: false, texto: 'Marca deve ter ao menos 3 letras.' };
       }
     },
   };
@@ -33,7 +33,7 @@ export default function BrandForm() {
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
   function cancelar() {
-    history.goBack();
+    history.push('/marcas');
   }
 
   useEffect(() => {
@@ -53,8 +53,8 @@ export default function BrandForm() {
             });
           } else {
             BrandService.create({ nome: brand }).then((res) => {
-              setBrand("");
-              history.goBack();
+              setBrand('');
+              history.push('/marcas');
             });
           }
         }
@@ -84,7 +84,7 @@ export default function BrandForm() {
           type="submit"
           disabled={!possoEnviar()}
         >
-          {id ? "Alterar" : "Cadastrar"}
+          {id ? 'Alterar' : 'Cadastrar'}
         </Button>
 
         <Button
@@ -99,3 +99,5 @@ export default function BrandForm() {
     </form>
   );
 }
+
+export default BrandRegister;

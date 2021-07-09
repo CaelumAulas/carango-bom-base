@@ -1,14 +1,14 @@
-import { Container, CssBaseline, makeStyles } from "@material-ui/core";
-import blue from "@material-ui/core/colors/blue";
-import { ptBR } from "@material-ui/core/locale";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import "./App.css";
-import BrandForm from "./pages/Brand/BrandForm/BrandForm";
-import BrandList from "./pages/Brand/BrandList/BrandList";
-import UserForm from "./pages/User/UserForm/UserForm";
-import Login from "./pages/Login/Login";
+import { Container, CssBaseline, makeStyles } from '@material-ui/core';
+import blue from '@material-ui/core/colors/blue';
+import { ptBR } from '@material-ui/core/locale';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import './App.css';
+import SignUp from './pages/SignUp/SignUp';
+import BrandList from './pages/Brand/BrandList/BrandList';
+import BrandRegister from './pages/Brand/BrandRegister/BrandRegister';
+import Login from './pages/Login/Login';
 
 const muiTheme = createMuiTheme(
   {
@@ -23,13 +23,13 @@ const muiTheme = createMuiTheme(
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: 'flex',
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
+    color: '#fff',
   },
   content: {
     flexGrow: 1,
@@ -52,17 +52,17 @@ function App() {
               <Route exact path="/">
                 <Login></Login>
               </Route>
-              <Route path="/cadastro-marca">
-                <BrandForm></BrandForm>
+              <Route path="/marca/cadastro-marca">
+                <BrandRegister></BrandRegister>
               </Route>
-              <Route path="/alteracao-marca/:id">
-                <BrandForm></BrandForm>
+              <Route path="/marca/alteracao-marca/:id">
+                <BrandRegister></BrandRegister>
               </Route>
               <Route path="/marcas">
                 <BrandList></BrandList>
               </Route>
-              <Route path="/cadastro-usuario">
-                <UserForm></UserForm>
+              <Route path="/cadastrar">
+                <SignUp></SignUp>
               </Route>
             </Switch>
           </Container>

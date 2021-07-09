@@ -1,11 +1,11 @@
-import { Grid, Button, Paper, TextField, Container } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import useErros from "../../../hooks/useErros";
-import UserService from "../../../services/UserService";
-import "./UserForm.css";
+import { Grid, Button, Paper, TextField, Container } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import useErros from '../../hooks/useErros';
+import UserService from '../../services/UserService';
+import './SignUp.css';
 
-export default function UserForm() {
+export default function SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
     const data = {
@@ -14,28 +14,26 @@ export default function UserForm() {
       reqPassword: reqPassword,
     };
 
-    if (name !== "" && password !== "" && reqPassword !== "") {
-      // TODO implentar
-      // const response = awai api.post('api/usuarios, data');
+    if (name !== '' && password !== '' && reqPassword !== '') {
       if (password !== reqPassword) {
-        alert("As senhas não estão iguais.");
+        alert('As senhas não estão iguais.');
       } else {
-        window.location.href = "/usuarios";
+        window.location.href = '/usuarios';
       }
     } else {
-      alert("Preencha todos os dados.");
+      alert('Preencha todos os dados.');
     }
   }
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [reqPassword, setReqPassword] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [reqPassword, setReqPassword] = useState('');
   const { id } = useParams();
 
   const [erros, validarCampos, possoEnviar] = useErros();
 
   function cancelar() {
-    window.location.href = "/usuarios";
+    window.location.href = '/usuarios';
   }
 
   useEffect(() => {
@@ -106,7 +104,7 @@ export default function UserForm() {
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      {id ? "Alterar" : "Incluir"}
+                      {id ? 'Alterar' : 'Incluir'}
                     </Button>
                   </Grid>
                   <Grid item sm={2}>

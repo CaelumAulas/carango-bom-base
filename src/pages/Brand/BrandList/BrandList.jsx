@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import BrandService from "../../../services/BrandService";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import BrandService from '../../../services/BrandService';
 
-import Table from "../../../components/Table/Table";
+import Table from '../../../components/Table/Table';
 
-const columns = [{ field: "nome", headerName: "Marca", width: 200 }];
+const columns = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
 export default function BrandList() {
   const [brands, setBrands] = useState([]);
@@ -12,11 +12,11 @@ export default function BrandList() {
   const history = useHistory();
 
   function create() {
-    history.push("/cadastro-marca");
+    history.push('/marca/cadastro-marca');
   }
 
   function update() {
-    history.push("/alteracao-marca/" + selectedBrand.id);
+    history.push('/marca/alteracao-marca/' + selectedBrand.id);
   }
 
   function deleteBrand() {
@@ -32,7 +32,7 @@ export default function BrandList() {
   }
 
   return (
-    <div style={{ height: 300, width: "100%" }}>
+    <div style={{ height: 300, width: '100%' }}>
       <Table
         rows={brands}
         columns={columns}
