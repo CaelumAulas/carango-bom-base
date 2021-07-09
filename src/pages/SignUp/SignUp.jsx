@@ -1,10 +1,21 @@
 import { Grid, Button, Paper, TextField, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 import UserService from '../../services/UserService';
 import './SignUp.css';
 
 export default function SignUp() {
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [reqPassword, setReqPassword] = useState('');
+
+  const history = useHistory();
+  const { id } = useParams();
+
+  function cancelar() {
+    history.push('/usuarios');
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -12,20 +23,11 @@ export default function SignUp() {
       if (password !== reqPassword) {
         alert('As senhas não estão iguais.');
       } else {
-        window.location.href = '/usuarios';
+        history.push('/usuarios');
       }
     } else {
       alert('Preencha todos os dados.');
     }
-  }
-
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [reqPassword, setReqPassword] = useState('');
-  const { id } = useParams();
-
-  function cancelar() {
-    window.location.href = '/usuarios';
   }
 
   useEffect(() => {
