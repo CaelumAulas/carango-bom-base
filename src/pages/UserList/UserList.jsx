@@ -20,23 +20,22 @@ export default function UserList() {
   }
 
   function deleteUser() {
-    UserService.delete(selectedUser).then(() => {
-      setSelectedUser(null);
-      fetchUsers();
-    });
+    UserService.delete(selectedUser)
+    setUsers(users.filter((user) => user.id !== selectedUser.id));
+    setSelectedUser(null);
   }
 
   useEffect(() => fetchUsers(), []);
 
-  function fetchUsers() {
-    UserService.getAll().then((data) => setUsers(data));
-  }
 
+  function fetchUsers() {
+    UserService.getAll().then((data) => {setUsers(data)});
+  }
   return (
     <div style={{ height: 300, width: '100%' }}>
       <Table
-        linhas={users}
-        colunas={columns}
+        rows={users}
+        columns={columns}
         addItem={create}
         updateItem={update}
         deleteItem={deleteUser}
