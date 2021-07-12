@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Grid } from '@material-ui/core';
 import { useHistory, Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/auth';
 import './Login.css';
 
 function Login() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const { Login } = useAuth();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    await Login({ login, password });
     history.push('/marcas');
   }
 

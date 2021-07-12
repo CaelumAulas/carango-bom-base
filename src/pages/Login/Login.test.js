@@ -1,23 +1,30 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen, render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import AuthService from '../../services/AuthService';
+import { AuthProvider } from '../../contexts/auth';
 
 import Login from './Login';
 
 describe('<Login/>', () => {
   const history = createMemoryHistory();
+  const authSpy = jest.spyOn(AuthService, 'loginTest');
   const setup = () =>
     render(
-      <Router history={history}>
-        <Login />
-      </Router>
+      <AuthProvider>
+        <Router history={history}>
+          <Login />
+        </Router>
+      </AuthProvider>
     );
 
   beforeEach(async () => {
-    jest.clearAllMocks();
     setup();
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('Should render the login component', () => {
@@ -32,7 +39,7 @@ describe('<Login/>', () => {
     expect(btnRegister).toBeInTheDocument();
   });
 
-  it('Should redirect the user to "/marcas" after login', () => {
+  it('Should call login with the correct credentials', async () => {
     userEvent.type(
       screen.getByRole('textbox', { name: 'Email' }),
       'teste@teste.com'
@@ -40,9 +47,15 @@ describe('<Login/>', () => {
     userEvent.type(screen.getByText('Password'), '1234');
 
     const leftClick = { button: 0 };
-    userEvent.click(screen.getByRole('button', { name: 'logar' }), leftClick);
-
-    expect(history.location.pathname).toBe('/marcas');
+    await act(async () =>
+      userEvent.click(screen.getByRole('button', { name: 'logar' }), leftClick)
+    );
+    expect(authSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        login: 'teste@teste.com',
+        password: '1234',
+      })
+    );
   });
 
   it('Should redirect the user to "/cadastrar" when click register button', () => {
