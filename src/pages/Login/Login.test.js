@@ -11,6 +11,7 @@ import Login from './Login';
 describe('<Login/>', () => {
   const history = createMemoryHistory();
   const authSpy = jest.spyOn(AuthService, 'loginTest');
+  const userTest = { login: 'teste@example.com', password: '12345' };
   const setup = () =>
     render(
       <AuthProvider>
@@ -40,11 +41,9 @@ describe('<Login/>', () => {
   });
 
   it('Should call login with the correct credentials', async () => {
-    userEvent.type(
-      screen.getByRole('textbox', { name: 'Email' }),
-      'teste@teste.com'
-    );
-    userEvent.type(screen.getByText('Password'), '1234');
+    const { login, password } = userTest;
+    userEvent.type(screen.getByRole('textbox', { name: 'Email' }), login);
+    userEvent.type(screen.getByText('Password'), password);
 
     const leftClick = { button: 0 };
     await act(async () =>
@@ -52,8 +51,8 @@ describe('<Login/>', () => {
     );
     expect(authSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        login: 'teste@teste.com',
-        password: '1234',
+        login,
+        password,
       })
     );
   });

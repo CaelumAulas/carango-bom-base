@@ -8,11 +8,11 @@ function Login() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  const { Login } = useAuth();
+  const { Authenticate } = useAuth();
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await Login({ login, password });
+    await Authenticate({ login, password });
     history.push('/marcas');
   }
 
