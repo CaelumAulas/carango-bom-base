@@ -24,10 +24,12 @@ describe('<Login/>', () => {
     const inputEmail = screen.getByRole('textbox', { name: 'Email' });
     const inputPassword = screen.getByText('Password');
     const btnLogar = screen.getByRole('button', { name: 'logar' });
+    const btnRegister = screen.getByRole('button', { name: 'registrar' });
 
     expect(inputEmail).toBeInTheDocument();
     expect(inputPassword).toBeInTheDocument();
     expect(btnLogar).toBeInTheDocument();
+    expect(btnRegister).toBeInTheDocument();
   });
 
   it('Should redirect the user to "/marcas" after login', () => {
@@ -41,5 +43,12 @@ describe('<Login/>', () => {
     userEvent.click(screen.getByRole('button', { name: 'logar' }), leftClick);
 
     expect(history.location.pathname).toBe('/marcas');
+  });
+
+  it('Should redirect the user to "/cadastrar" when click register button', () => {
+    const registerBtn = screen.getByRole('button', { name: 'registrar' });
+    userEvent.click(registerBtn);
+
+    expect(history.location.pathname).toBe('/cadastrar');
   });
 });
