@@ -24,7 +24,6 @@ fdescribe('<UserList />', () => {
     ));
   });
   it('Should render list lines', async () => {
-    screen.debug()
     expect(await screen.findByText(usersMock[0].name)).toBeInTheDocument();
   });
 
