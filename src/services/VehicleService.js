@@ -7,10 +7,13 @@ const VehicleService = {
   },
 
   update(vehicle) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id, {
-      method: 'PUT',
-      body: JSON.stringify(vehicle),
-    }).then((r) => r.json());
+    return fetch(
+      'https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id,
+      {
+        method: 'PUT',
+        body: JSON.stringify(vehicle),
+      }
+    ).then((r) => r.json());
   },
 
   getById(id) {
@@ -24,9 +27,12 @@ const VehicleService = {
     );
   },
   delete(vehicle) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id, {
-      method: 'DELETE',
-    }).then((r) => r.json());
+    return fetch(
+      'https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id,
+      {
+        method: 'DELETE',
+      }
+    ).then((r) => r.json());
   },
 };
 

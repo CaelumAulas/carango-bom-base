@@ -9,7 +9,8 @@ import SignUp from './pages/SignUp/SignUp';
 import UserList from './pages/UserList/UserList';
 import BrandList from './pages/Brand/BrandList/BrandList';
 import BrandRegister from './pages/Brand/BrandRegister/BrandRegister';
-import VehicleList from './pages/VehicleList/VehicleList';
+import VehicleList from './pages/Vehicle/VehicleList/VehicleList';
+import VehicleRegister from './pages/Vehicle/VehicleRegister/VehicleRegister';
 import Login from './pages/Login/Login';
 import { AuthProvider } from './contexts/auth';
 
@@ -67,6 +68,12 @@ function App() {
                 </Route>
                 <Route path="/cadastrar">
                   <SignUp></SignUp>
+                </Route>
+                <Route path="/veiculo/cadastro-veiculo">
+                  <VehicleRegister></VehicleRegister>
+                </Route>
+                <Route path="/veiculo/alteracao-veiculo/:id">
+                  <VehicleRegister></VehicleRegister>
                 </Route>
                 <Route path="/veiculos">
                   <VehicleList />

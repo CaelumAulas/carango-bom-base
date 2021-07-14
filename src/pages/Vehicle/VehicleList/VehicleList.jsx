@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import VehicleService from '../../services/VehicleService';
+import VehicleService from '../../../services/VehicleService';
 
-import Table from '../../components/Table/Table';
+import Table from '../../../components/Table/Table';
 
-const columns = [{ field: 'modelo', headerName: 'Modelo', width: 200 },
-{ field: 'ano', headerName: 'Ano', width: 200 },
-{ field: 'nome-marca', headerName: 'Marca', width: 200 },
-{ field: 'valor', headerName: 'Valor', width: 200 }];
+const columns = [
+  { field: 'modelo', headerName: 'Modelo', width: 200 },
+  { field: 'ano', headerName: 'Ano', width: 200 },
+  { field: 'nome-marca', headerName: 'Marca', width: 200 },
+  { field: 'valor', headerName: 'Valor', width: 200 },
+];
 
 function VehicleList() {
   const [vehicles, setVehicles] = useState([]);
@@ -24,7 +26,9 @@ function VehicleList() {
 
   function deleteVehicle() {
     VehicleService.delete(selectedVehicle);
-    setVehicles(vehicles.filter((vehicle) => vehicle.id !== selectedVehicle.id));
+    setVehicles(
+      vehicles.filter((vehicle) => vehicle.id !== selectedVehicle.id)
+    );
     setSelectedVehicle(null);
   }
 
@@ -32,8 +36,10 @@ function VehicleList() {
 
   function fetchVehicles() {
     VehicleService.getAll().then((data) => {
-      data = data.map((elem)=> {return {'nome-marca':elem.marca.nome,...elem }})
-      setVehicles(data)
+      data = data.map((elem) => {
+        return { 'nome-marca': elem.marca.nome, ...elem };
+      });
+      setVehicles(data);
     });
   }
 

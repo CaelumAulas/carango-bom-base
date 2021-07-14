@@ -6,8 +6,16 @@ import userEvent from '@testing-library/user-event';
 
 import VehicleList from './VehicleList';
 
-const vehiclesMock = [{ id: 0, modelo: 'Fusca', valor: 800, ano: 2030, marca: {id:0, nome:'Fiat'} }];
-jest.mock('../../services/VehicleService', () => ({
+const vehiclesMock = [
+  {
+    id: 0,
+    modelo: 'Fusca',
+    valor: 800,
+    ano: 2030,
+    marca: { id: 0, nome: 'Fiat' },
+  },
+];
+jest.mock('../../../services/VehicleService', () => ({
   delete: jest.fn().mockResolvedValue(),
   getAll: jest.fn().mockResolvedValue(vehiclesMock),
 }));
@@ -17,11 +25,13 @@ describe('<VehicleList />', () => {
 
   beforeEach(async () => {
     jest.clearAllMocks();
-    await act(async () => render(
-      <Router history={history}>
-        <VehicleList />
-      </Router>
-    ));
+    await act(async () =>
+      render(
+        <Router history={history}>
+          <VehicleList />
+        </Router>
+      )
+    );
   });
 
   it('Should redirect to vehicle update route when user click on update button', async () => {
@@ -30,7 +40,9 @@ describe('<VehicleList />', () => {
     userEvent.click(vehicleSelected);
     userEvent.click(updateBtn);
 
-    expect(history.location.pathname).toBe('/alteracao-veiculo/'+vehiclesMock[0].id);
+    expect(history.location.pathname).toBe(
+      '/alteracao-veiculo/' + vehiclesMock[0].id
+    );
   });
   it('Should delete item', async () => {
     const deleteBtn = screen.getByRole('button', { name: 'Excluir' });
