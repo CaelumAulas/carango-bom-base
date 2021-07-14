@@ -1,34 +1,30 @@
-import { API_URL } from '../Constants'
+import { API_URL } from '../Constants';
 
 const BrandService = {
-  create(marca) {
-    return fetch(API_URL+'/marcas', {
+  create(brand) {
+    return fetch(API_URL + '/marcas', {
       method: 'POST',
-      body: JSON.stringify(marca),
+      body: JSON.stringify(brand),
     }).then((r) => r.json());
   },
 
-  update(marca) {
-    return fetch(API_URL+'/marcas/' + marca.id, {
+  update(brand) {
+    return fetch(API_URL + '/marcas/' + brand.id, {
       method: 'PUT',
-      body: JSON.stringify(marca),
+      body: JSON.stringify(brand),
     }).then((r) => r.json());
   },
 
   getById(id) {
-    return fetch(API_URL+'/marcas/' + id).then(
-      (r) => r.json()
-    );
+    return fetch(API_URL + '/marcas/' + id).then((r) => r.json());
   },
 
   getAll() {
-    return fetch(API_URL+'/marcas').then((r) =>
-      r.json()
-    );
+    return fetch(API_URL + '/marcas').then((r) => r.json());
   },
 
-  delete(marca) {
-    return fetch(API_URL+'/marcas/' + marca.id, {
+  delete(brand) {
+    return fetch(API_URL + '/marcas/' + brand.id, {
       method: 'DELETE',
     }).then((r) => r.json());
   },

@@ -5,11 +5,14 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import CadastroMarca from './pages/CadastroMarca';
-import BrandList from './pages/BrandList/BrandList';
-import VehicleList from './pages/VehicleList/VehicleList';
+import SignUp from './pages/SignUp/SignUp';
+import UserList from './pages/UserList/UserList';
+import BrandList from './pages/Brand/BrandList/BrandList';
+import BrandRegister from './pages/Brand/BrandRegister/BrandRegister';
+import VehicleList from './pages/Vehicle/VehicleList/VehicleList';
+import VehicleRegister from './pages/Vehicle/VehicleRegister/VehicleRegister';
 import Login from './pages/Login/Login';
-import CadastroUsuario from './pages/CadastroUsuario';
+import { AuthProvider } from './contexts/auth';
 
 const muiTheme = createMuiTheme(
   {
@@ -48,28 +51,42 @@ function App() {
         <CssBaseline />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Container component="article" maxWidth="md">
-            <Switch>
-              <Route path="/cadastro-marca">
-                <CadastroMarca></CadastroMarca>
-              </Route>
-              <Route path="/alteracao-marca/:id">
-                <CadastroMarca></CadastroMarca>
-              </Route>
-              <Route path="/marcas">
-                <BrandList></BrandList>
-              </Route>
-              <Route path="/veiculos">
-                <VehicleList />
-              </Route>
-              <Route path="/">
-                <Login></Login>
-              <Route path="/cadastro-usuario">
-                <CadastroUsuario></CadastroUsuario>
-              </Route>
-              </Route>
-            </Switch>
-          </Container>
+          <AuthProvider>
+            <Container component="article" maxWidth="md">
+              <Switch>
+                <Route exact path="/">
+                  <Login></Login>
+                </Route>
+                <Route path="/marca/cadastro-marca">
+                  <BrandRegister></BrandRegister>
+                </Route>
+                <Route path="/marca/alteracao-marca/:id">
+                  <BrandRegister></BrandRegister>
+                </Route>
+                <Route path="/marcas">
+                  <BrandList></BrandList>
+                </Route>
+                <Route path="/cadastrar">
+                  <SignUp></SignUp>
+                </Route>
+                <Route path="/veiculo/cadastro-veiculo">
+                  <VehicleRegister></VehicleRegister>
+                </Route>
+                <Route path="/veiculo/alteracao-veiculo/:id">
+                  <VehicleRegister></VehicleRegister>
+                </Route>
+                <Route path="/veiculos">
+                  <VehicleList />
+                </Route>
+                <Route path="/usuarios">
+                  <UserList />
+                </Route>
+                <Route path="/">
+                  <Login></Login>
+                </Route>
+              </Switch>
+            </Container>
+          </AuthProvider>
         </main>
       </div>
     </ThemeProvider>

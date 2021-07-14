@@ -23,7 +23,6 @@ export default function Table({
       />
       <div className="actionsToolbar">
         <Button
-          data-testid="btn-cadastrar"
           className="actions"
           variant="contained"
           color="primary"
@@ -32,7 +31,6 @@ export default function Table({
           Incluir
         </Button>
         <Button
-          data-testid="btn-excluir"
           className="actions"
           variant="contained"
           color="secondary"
@@ -42,7 +40,6 @@ export default function Table({
           Excluir
         </Button>
         <Button
-          data-testid="btn-alterar"
           className="actions"
           variant="contained"
           color="primary"

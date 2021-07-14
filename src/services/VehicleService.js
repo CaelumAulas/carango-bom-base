@@ -1,4 +1,4 @@
-import { API_URL } from '../Constants'
+import { API_URL } from '../Constants';
 
 const VehicleService = {
   create(vehicle) {
@@ -16,14 +16,10 @@ const VehicleService = {
   },
 
   getById(id) {
-    return fetch(API_URL + '/veiculos/' + id).then(
-      (r) => r.json()
-    );
+    return fetch(API_URL + '/veiculos/' + id).then((r) => r.json());
   },
   getAll() {
-    return fetch(API_URL + '/veiculos').then((r) =>
-      r.json()
-    );
+    return fetch(API_URL + '/veiculos').then((r) => r.json());
   },
   delete(vehicle) {
     return fetch(API_URL + '/veiculos/' + vehicle.id, {
