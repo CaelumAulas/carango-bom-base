@@ -1,10 +1,9 @@
 import React from 'react';
 import VehicleRegister from './VehicleRegister';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import BrandService from '../../../services/BrandService';
 import VehicleService from '../../../services/VehicleService';
 import { Route, MemoryRouter } from 'react-router-dom';
-import { act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const brands = [
