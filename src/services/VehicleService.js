@@ -1,30 +1,32 @@
+import { API_URL } from '../Constants'
+
 const VehicleService = {
   create(vehicle) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos', {
+    return fetch(API_URL + '/veiculos', {
       method: 'POST',
       body: JSON.stringify(vehicle),
     }).then((r) => r.json());
   },
 
   update(vehicle) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id, {
+    return fetch(API_URL + '/veiculos/' + vehicle.id, {
       method: 'PUT',
       body: JSON.stringify(vehicle),
     }).then((r) => r.json());
   },
 
   getById(id) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + id).then(
+    return fetch(API_URL + '/veiculos/' + id).then(
       (r) => r.json()
     );
   },
   getAll() {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos').then((r) =>
+    return fetch(API_URL + '/veiculos').then((r) =>
       r.json()
     );
   },
   delete(vehicle) {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos/' + vehicle.id, {
+    return fetch(API_URL + '/veiculos/' + vehicle.id, {
       method: 'DELETE',
     }).then((r) => r.json());
   },
