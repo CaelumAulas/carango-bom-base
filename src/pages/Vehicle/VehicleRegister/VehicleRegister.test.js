@@ -1,6 +1,6 @@
 import React from 'react';
 import VehicleRegister from './VehicleRegister';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import BrandService from '../../../services/BrandService';
 import VehicleService from '../../../services/VehicleService';
 import { Route, MemoryRouter } from 'react-router-dom';
@@ -73,7 +73,46 @@ describe('<VehicleRegister />', () => {
     expect(cancelBtn).toBeInTheDocument();
   });
 
-  describe('<VehicleRegister />', () => {
+  it('Should show error message when input model is invalid', async () => {
+    const inputVehicleModel = screen.getByRole('textbox', { name: /Modelo/i });
+
+    userEvent.type(inputVehicleModel, 'te');
+    fireEvent.blur(inputVehicleModel);
+
+    const errorMessage = await screen.findByText(
+      /Modelo deve ter ao menos 3 letras./i
+    );
+
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('Should show error message when input year is invalid', async () => {
+    const inputVehicleYear = screen.getByRole('textbox', { name: /Ano/i });
+
+    userEvent.type(inputVehicleYear, 'te');
+    fireEvent.blur(inputVehicleYear);
+
+    const errorMessage = await screen.findByText(
+      /Ano deve ter ao menos 3 letras./i
+    );
+
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('Should show error message when input price is invalid', async () => {
+    const inputVehiclePrice = screen.getByRole('textbox', { name: /Valor/i });
+
+    userEvent.type(inputVehiclePrice, 'te');
+    fireEvent.blur(inputVehiclePrice);
+
+    const errorMessage = await screen.findByText(
+      /Valor deve ter ao menos 3 letras./i
+    );
+
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  describe('<VehicleRegister /> all fields', () => {
     beforeEach(async () => {
       const inputVehicleModel = screen.getByRole('textbox', {
         name: /Modelo/i,
