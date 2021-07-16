@@ -24,6 +24,8 @@ export function AuthProvider({ children }) {
 
   function Logout() {
     setUser(null);
+    sessionStorage.removeItem('@App:user');
+    sessionStorage.removeItem('@App:token');
   }
 
   return (
