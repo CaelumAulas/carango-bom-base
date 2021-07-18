@@ -66,8 +66,14 @@ function App() {
                 <Route path="/marcas">
                   <BrandList></BrandList>
                 </Route>
-                <Route path="/cadastrar">
+                <Route path="/usuario/cadastro-usuario">
                   <SignUp></SignUp>
+                </Route>
+                <Route path="/usuario/alteracao-usuario:id">
+                  <SignUp></SignUp>
+                </Route>
+                <Route path="/usuarios">
+                  <UserList />
                 </Route>
                 <Route path="/veiculo/cadastro-veiculo">
                   <VehicleRegister></VehicleRegister>
@@ -77,9 +83,6 @@ function App() {
                 </Route>
                 <Route path="/veiculos">
                   <VehicleList />
-                </Route>
-                <Route path="/usuarios">
-                  <UserList />
                 </Route>
                 <Route path="/">
                   <Login></Login>
