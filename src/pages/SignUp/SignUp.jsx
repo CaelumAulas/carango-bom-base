@@ -51,7 +51,7 @@ export default function SignUp() {
                     id="username"
                     name="username"
                     label="Nome Completo"
-                    value={"" || values.username}
+                    value={values.username || ''}
                     onChange={handleChange}
                     fullWidth
                     autoComplete="username"
@@ -65,7 +65,7 @@ export default function SignUp() {
                     name="password"
                     label={id ? "Nova Senha" : "Senha"}
                     type="password"
-                    value={id ? "" : values.password || ""}
+                    value={values.password || ''}
                     onChange={handleChange}
                     fullWidth
                     autoComplete="password"
@@ -79,7 +79,7 @@ export default function SignUp() {
                     name="password2"
                     label="Confirme sua Senha"
                     type="password"
-                    value={id ? "" : values.password2 || ""}
+                    value={values.password2 || ''}
                     onChange={handleChange}
                     fullWidth
                     autoComplete="password2"
