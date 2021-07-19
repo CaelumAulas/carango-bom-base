@@ -1,5 +1,5 @@
 import { Grid, Button, Paper, TextField, Container } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useHistory } from "react-router";
 import useForm from "../../hooks/useForm";
 import validate from "./SignUpValidationRules";
@@ -9,6 +9,7 @@ import "./SignUp.css";
 
 export default function SignUp() {
   const history = useHistory();
+  const [error, setError] = useState('');
   const { id } = useParams();
   const { handleChange, handleSubmit, values, errors } = useForm(validate, submitForm);
 
@@ -16,17 +17,24 @@ export default function SignUp() {
     history.push("/usuarios");
   }
 
-  function submitForm() {
-    console.log(values);
-    userService.create(values).then((res) => {
-      if (res === "Success") {
-        history.push("/usuarios");
-      } else if (res === "Error") {
-        alert('Ocorreu um erro com a requisição.');
-      } else if (res.error === "Unauthorized") {
-        alert('Acesso não autorizado.');
+  async function submitForm() {
+    try {
+      if (id) {
+        await userService.update(...values, id).then((res) => {
+          if (res === "Success") {
+            history.push("/usuarios");
+          }
+        });
+      } else {
+        await userService.create(values).then((res) => {
+          if (res === "Success") {
+            history.push("/usuarios");
+          }
+        });
       }
-    });
+    } catch (e) {
+      setError(e.message);
+    }
   }
 
   return (
@@ -48,18 +56,16 @@ export default function SignUp() {
                     fullWidth
                     autoComplete="username"
                   />
-                  {errors.username && (
-                    <p calssName="teste">{errors.username}</p>
-                  )}
+                  {errors.username && <p>{errors.username}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     id="password"
                     name="password"
-                    label="Senha"
+                    label={id ? "Nova Senha" : "Senha"}
                     type="password"
-                    value={values.password || ""}
+                    value={id ? "" : values.password || ""}
                     onChange={handleChange}
                     fullWidth
                     autoComplete="password"
@@ -73,7 +79,7 @@ export default function SignUp() {
                     name="password2"
                     label="Confirme sua Senha"
                     type="password"
-                    value={values.password2 || ""}
+                    value={id ? "" : values.password2 || ""}
                     onChange={handleChange}
                     fullWidth
                     autoComplete="password2"
@@ -83,16 +89,18 @@ export default function SignUp() {
                 <Grid item container xs={12} sm={12}>
                   <Grid item sm={2}>
                     <Button
+                      id="cadastrar"
                       variant="contained"
                       color="primary"
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      {id ? "Alterar" : "Incluir"}
+                      {id ? "Alterar" : "Cadastrar"}
                     </Button>
                   </Grid>
                   <Grid item sm={2}>
                     <Button
+                      id="cancelar"
                       variant="contained"
                       color="secondary"
                       onClick={cancel}

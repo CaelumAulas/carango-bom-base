@@ -3,6 +3,8 @@ export default function validate(values) {
 
   if (!values.username) {
     errors.username = "Preencha o nome do usuário.";
+  } else if (values.username.length < 3) {
+    errors.username = "Usuário precisa ter 3 digitos ou mais.";
   }
 
   if (!values.password) {
