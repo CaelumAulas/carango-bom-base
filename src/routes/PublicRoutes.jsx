@@ -8,10 +8,10 @@ function PublicRoutes() {
   return (
     <Switch>
       <Route exact path="/">
-        <Login></Login>
+        <Login />
       </Route>
       <Route path="/cadastrar">
-        <SignUp></SignUp>
+        <SignUp />
       </Route>
       <Route path="/veiculos">
         <VehicleList />

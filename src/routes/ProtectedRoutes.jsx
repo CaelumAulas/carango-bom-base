@@ -32,22 +32,19 @@ function ProtectedRoutes() {
   return (
     <Switch>
       <PrivateRoute path="/marcas">
-        <BrandList></BrandList>
+        <BrandList />
       </PrivateRoute>
       <PrivateRoute path="/marca/cadastro-marca">
-        <BrandRegister></BrandRegister>
+        <BrandRegister />
       </PrivateRoute>
       <PrivateRoute path="/marca/alteracao-marca/:id">
-        <BrandRegister></BrandRegister>
-      </PrivateRoute>
-      <PrivateRoute path="/marcas">
-        <BrandList></BrandList>
+        <BrandRegister />
       </PrivateRoute>
       <PrivateRoute path="/veiculo/cadastro-veiculo">
-        <VehicleRegister></VehicleRegister>
+        <VehicleRegister />
       </PrivateRoute>
       <PrivateRoute path="/veiculo/alteracao-veiculo/:id">
-        <VehicleRegister></VehicleRegister>
+        <VehicleRegister />
       </PrivateRoute>
       <PrivateRoute path="/usuarios">
         <UserList />
