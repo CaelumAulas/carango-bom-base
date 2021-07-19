@@ -54,7 +54,7 @@
       "!src/reportWebVitals.js",
       "!src/Constants.js",
       "!src/services/**/*",
-      "!src/routes/Routes.jsx"
+      "!src/routes/*"
     ],
     "resetMocks": false
   }

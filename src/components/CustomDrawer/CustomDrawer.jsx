@@ -13,11 +13,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useAuth } from '../../contexts/auth';
 import './style.css';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function CustomDrawer({ signed }) {
   const [open, setOpen] = useState(false);
   const { Logout } = useAuth();
+  const history = useHistory();
   const publicRoutes = [
     {
       name: 'Login',
@@ -46,6 +47,12 @@ function CustomDrawer({ signed }) {
   function toggleVisibility() {
     setOpen(!open);
   }
+
+  function handleLogout() {
+    Logout();
+    history.push('/');
+  }
+
   return (
     <>
       <AppBar position="fixed">
@@ -66,7 +73,7 @@ function CustomDrawer({ signed }) {
             ? authenticateRoutes.map(renderLinks)
             : publicRoutes.map(renderLinks)}
           {signed ? (
-            <ListItem button onClick={Logout}>
+            <ListItem button onClick={handleLogout}>
               <ListItemText primary={'Deslogar'} />
             </ListItem>
           ) : null}

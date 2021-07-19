@@ -5,14 +5,15 @@ const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const storagedUser = sessionStorage.getItem('@App:user');
     const storagedToken = sessionStorage.getItem('@App:token');
-
     if (storagedToken && storagedUser) {
       setUser(JSON.parse(storagedUser));
     }
+    setIsLoading(false);
   }, []);
 
   async function Login(credentials) {
@@ -30,7 +31,13 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signed: Boolean(user), user, Authenticate: Login, Logout }}
+      value={{
+        signed: Boolean(user),
+        user,
+        Authenticate: Login,
+        Logout,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>
