@@ -1,5 +1,5 @@
 import { Grid, Button, Paper, TextField, Container } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useHistory } from "react-router";
 import useForm from "../../hooks/useForm";
 import validate from "./SignUpValidationRules";
@@ -9,7 +9,6 @@ import "./SignUp.css";
 
 export default function SignUp() {
   const history = useHistory();
-  const [error, setError] = useState('');
   const { id } = useParams();
   const { handleChange, handleSubmit, values, errors } = useForm(validate, submitForm);
 
@@ -18,22 +17,18 @@ export default function SignUp() {
   }
 
   async function submitForm() {
-    try {
-      if (id) {
-        await userService.update(...values, id).then((res) => {
-          if (res === "Success") {
-            history.push("/usuarios");
-          }
-        });
-      } else {
-        await userService.create(values).then((res) => {
-          if (res === "Success") {
-            history.push("/usuarios");
-          }
-        });
-      }
-    } catch (e) {
-      setError(e.message);
+    if (id) {
+      await userService.update(...values, id).then((res) => {
+        if (res === "Success") {
+          history.push("/usuarios");
+        }
+      });
+    } else {
+      await userService.create(values).then((res) => {
+        if (res === "Success") {
+          history.push("/usuarios");
+        }
+      });
     }
   }
 
