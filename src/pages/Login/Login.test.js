@@ -86,6 +86,6 @@ describe('<Login/>', () => {
     const registerBtn = screen.getByRole('button', { name: /registrar/i });
     userEvent.click(registerBtn);
 
-    expect(history.location.pathname).toBe('/cadastrar');
+    expect(history.location.pathname).toBe('/cadastrar/');
   });
 });

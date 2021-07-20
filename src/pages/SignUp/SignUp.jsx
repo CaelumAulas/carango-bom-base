@@ -16,6 +16,7 @@ import './SignUp.css';
 
 export default function SignUp() {
   const history = useHistory();
+  const [error, setError] = useState('');
   const { id } = useParams();
   const { handleChange, handleSubmit, values, errors } = useForm(
     validate,
