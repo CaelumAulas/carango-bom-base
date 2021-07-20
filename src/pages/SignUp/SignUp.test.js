@@ -188,12 +188,13 @@ describe('<SignUp />', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
     await act(async () => setup(userMock.id));
+    screen.debug();
   });
 
   it('Should fetch the correct user based on ID provided', () => {
-    const inputUsername = screen.getByRole('textbox', { name: /Nome Completo/i });
+    const username = screen.getByText(userMock.username);
 
-    expect(inputUsername.value).toStrictEqual(userMock.username);
+    expect(username).toBeInTheDocument();
   })
 
   it('Should update user with correct params', () => {
