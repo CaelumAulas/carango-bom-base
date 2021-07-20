@@ -26,7 +26,7 @@ const userGetAllSpy = jest.spyOn(UserService, "getAll");
 
 const userMock = {
   id: 1,
-  username: "User",
+  username: "User Name",
   password: "123",
   password2: "123",
 }
@@ -59,7 +59,7 @@ const setup = (userId) => {
   );
 };
 
-describe('SignUp /> rendering', () => {
+describe('<SignUp />', () => {
 
   beforeEach(async () => {
     await act(async () => setup());
@@ -169,7 +169,7 @@ describe('SignUp /> rendering', () => {
     });
   });
 
-
+  // TODO line 17
   // describe('Button history validation', () => {
   //   beforeEach(async () => {
   //     const submitBtn = screen.getByRole('button', { name: /Cadastrar/i });
@@ -184,7 +184,7 @@ describe('SignUp /> rendering', () => {
   // });
 });
 
-describe('Route update', () => {
+describe('<SignUp />', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
     await act(async () => setup(userMock.id));
@@ -192,9 +192,28 @@ describe('Route update', () => {
 
   it('Should fetch the correct user based on ID provided', () => {
     const inputUsername = screen.getByRole('textbox', { name: /Nome Completo/i });
-    const inputPassword = screen.getByLabelText(/^Nova Senha/i);
-    const inputPassword2 = screen.getByLabelText(/Confirme sua Senha/i);
 
     expect(inputUsername.value).toStrictEqual(userMock.username);
   })
+
+  it('Should update user with correct params', () => {
+    const inputPassword = screen.getByLabelText(/^Nova Senha/i);
+    const inputPassword2 = screen.getByLabelText(/Confirme sua Senha/i);
+    const submitBtn = screen.getByRole('button', { name: /Alterar/i });
+
+    userEvent.clear(inputPassword, inputPassword2);
+    userEvent.type(inputPassword, 'abc');
+    userEvent.type(inputPassword2, 'abc');
+
+    userEvent.click(submitBtn);
+
+    expect(userUpdateSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: '1',
+        username: 'User Name',
+        password: 'abc',
+        password2: 'abc',
+      })
+    );
+  });
 })
