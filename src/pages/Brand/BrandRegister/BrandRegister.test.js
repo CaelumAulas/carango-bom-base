@@ -53,7 +53,7 @@ describe('<BrandRegister />', () => {
 
   it('Should show error if brand is not provided', async () => {
     const newBrand = '';
-    const textBox = screen.getByRole('textbox', { name: 'Marca' });
+    const textBox = screen.getByRole('textbox', { name: /Marca/i });
 
     fireEvent.focus(textBox);
     userEvent.type(textBox, newBrand);
@@ -67,10 +67,16 @@ describe('<BrandRegister />', () => {
 
   it('Should redirect to "/marcas" when the user press "cadastrar" with valid data', async () => {
     const newBrand = 'BMW';
-    const textBox = screen.getByRole('textbox', { name: 'Marca' });
-    const createBtn = screen.getByRole('button', { name: 'Cadastrar' });
+    const textBox = screen.getByRole('textbox', { name: /Marca/i });
+    const createBtn = screen.getByRole('button', { name: /Cadastrar/i });
     userEvent.type(textBox, newBrand);
     userEvent.click(createBtn);
+    await waitFor(() => expect(testLocation.pathname).toEqual('/marcas'));
+  });
+
+  it('Should redirect to "/marcas" when the user press "cancelar" with valid data', async () => {
+    const cancelBtn = screen.getByRole('button', { name: /cancelar/i });
+    userEvent.click(cancelBtn);
     await waitFor(() => expect(testLocation.pathname).toEqual('/marcas'));
   });
 
@@ -86,7 +92,7 @@ describe('<BrandRegister />', () => {
   });
 
   it('Should redirect to "/marcas" when the user press cancel', () => {
-    const cancelBtn = screen.getByRole('button', { name: 'Cancelar' });
+    const cancelBtn = screen.getByRole('button', { name: /Cancelar/i });
     userEvent.click(cancelBtn);
     expect(testLocation.pathname).toEqual('/marcas');
   });
@@ -108,7 +114,7 @@ describe('<BrandRegister />', () => {
       userEvent.type(correctBrand, 'bmw');
 
       const updateButton = screen.getByRole('button', { name: /alterar/i });
-      userEvent.click(updateButton);
+      await act(async () => userEvent.click(updateButton));
 
       expect(brandServiceUpdateSpy).toBeCalledWith({ id: '1', nome: 'bmw' });
     });

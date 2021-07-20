@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router';
+import useErros from '../../../hooks/useErros';
 import {
   Grid,
   Select,
@@ -19,6 +20,32 @@ function VehicleRegister() {
   const [year, setYear] = useState('');
   const [error, setError] = useState('');
   const [brands, setBrands] = useState([]);
+
+  const validacoes = {
+    model: (data) => {
+      if (data && data.length >= 3) {
+        return { valido: true };
+      } else {
+        return { valido: false, texto: 'Modelo deve ter ao menos 3 letras.' };
+      }
+    },
+    year: (data) => {
+      if (data && data.length >= 3) {
+        return { valido: true };
+      } else {
+        return { valido: false, texto: 'Ano deve ter ao menos 3 letras.' };
+      }
+    },
+    price: (data) => {
+      if (data && data.length >= 3) {
+        return { valido: true };
+      } else {
+        return { valido: false, texto: 'Valor deve ter ao menos 3 letras.' };
+      }
+    },
+  };
+
+  const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
   const renderMenuItem = (brand) => {
     return (
@@ -47,10 +74,12 @@ function VehicleRegister() {
     event.preventDefault();
     const vehicle = { brandId, model, price, year };
     try {
-      if (id) {
-        await VehicleService.update({ ...vehicle, id });
-      } else {
-        await VehicleService.create(vehicle);
+      if (possoEnviar) {
+        if (id) {
+          await VehicleService.update({ ...vehicle, id });
+        } else {
+          await VehicleService.create(vehicle);
+        }
       }
     } catch (e) {
       setError(e.message);
@@ -85,11 +114,13 @@ function VehicleRegister() {
             onChange={(evt) => setModel(evt.target.value)}
             variant="outlined"
             margin="normal"
+            onBlur={validarCampos}
+            helperText={erros.model.texto}
+            error={!erros.model.valido}
             fullWidth
             id="model"
             label="Modelo"
             name="model"
-            autoFocus
           />
         </Grid>
         <Grid item xs={12}>
@@ -98,11 +129,13 @@ function VehicleRegister() {
             onChange={(evt) => setYear(evt.target.value)}
             variant="outlined"
             margin="normal"
+            onBlur={validarCampos}
+            helperText={erros.year.texto}
+            error={!erros.year.valido}
             fullWidth
             id="year"
             label="Ano"
             name="year"
-            autoFocus
           />
         </Grid>
         <Grid item xs={12}>
@@ -111,16 +144,24 @@ function VehicleRegister() {
             onChange={(evt) => setPrice(evt.target.value)}
             variant="outlined"
             margin="normal"
+            onBlur={validarCampos}
+            helperText={erros.price.texto}
+            error={!erros.price.valido}
             fullWidth
             id="price"
             label="Valor"
             name="price"
-            autoFocus
           />
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              disabled={!possoEnviar()}
+            >
               cadastrar
             </Button>
           </Grid>
