@@ -1,32 +1,41 @@
-import { Grid, Button, Paper, TextField, Container } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router';
-import UserService from '../../services/UserService';
-import './SignUp.css';
+import { Grid, Button, Paper, TextField, Container } from "@material-ui/core";
+import React, { useState } from "react";
+import { useParams, useHistory } from "react-router";
+import useForm from "../../hooks/useForm";
+import validate from "./SignUpValidationRules";
+import userService from '../../services/UserService';
+
+import "./SignUp.css";
 
 export default function SignUp() {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [reqPassword, setReqPassword] = useState('');
-
   const history = useHistory();
+  const [error, setError] = useState('');
   const { id } = useParams();
+  const { handleChange, handleSubmit, values, errors } = useForm(validate, submitForm);
 
-  function cancelar() {
-    history.push('/usuarios');
+  function cancel() {
+    history.push("/usuarios");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-
-  useEffect(() => {
-    if (id) {
-      UserService.getById(id).then((m) => {
-        m.setName(m.Name);
-      });
+  async function submitForm() {
+    try {
+      if (id) {
+        await userService.update(...values, id).then((res) => {
+          if (res === "Success") {
+            history.push("/usuarios");
+          }
+        });
+      } else {
+        await userService.create(values).then((res) => {
+          if (res === "Success") {
+            history.push("/usuarios");
+          }
+        });
+      }
+    } catch (e) {
+      setError(e.message);
     }
-  }, [id]);
+  }
 
   return (
     <div className="root">
@@ -39,63 +48,62 @@ export default function SignUp() {
                 <Grid item xs={12} sm={12}>
                   <TextField
                     required
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     label="Nome Completo"
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
+                    value={values.username || ''}
+                    onChange={handleChange}
                     fullWidth
-                    autoComplete="name"
+                    autoComplete="username"
                   />
+                  {errors.username && <p>{errors.username}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     id="password"
                     name="password"
-                    label="Senha"
+                    label={id ? "Nova Senha" : "Senha"}
                     type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
+                    value={values.password || ''}
+                    onChange={handleChange}
                     fullWidth
                     autoComplete="password"
                   />
+                  {errors.password && <p>{errors.password}</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
-                    id="reqPassword"
-                    name="reqPassword"
+                    id="password2"
+                    name="password2"
                     label="Confirme sua Senha"
                     type="password"
-                    value={reqPassword}
-                    onChange={(e) => {
-                      setReqPassword(e.target.value);
-                    }}
+                    value={values.password2 || ''}
+                    onChange={handleChange}
                     fullWidth
-                    autoComplete="reqPassword"
+                    autoComplete="password2"
                   />
+                  {errors.password2 && <p>{errors.password2}</p>}
                 </Grid>
                 <Grid item container xs={12} sm={12}>
                   <Grid item sm={2}>
                     <Button
+                      id="cadastrar"
                       variant="contained"
                       color="primary"
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      {id ? 'Alterar' : 'Incluir'}
+                      {id ? "Alterar" : "Cadastrar"}
                     </Button>
                   </Grid>
                   <Grid item sm={2}>
                     <Button
+                      id="cancelar"
                       variant="contained"
                       color="secondary"
-                      onClick={cancelar}
+                      onClick={cancel}
                     >
                       Cancelar
                     </Button>
