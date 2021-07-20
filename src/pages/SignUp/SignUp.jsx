@@ -1,4 +1,11 @@
-import { Grid, Button, Paper, TextField, Container } from '@material-ui/core';
+import {
+  Grid,
+  Button,
+  Paper,
+  TextField,
+  Container,
+  FormHelperText,
+} from '@material-ui/core';
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router';
 import useForm from '../../hooks/useForm';
@@ -111,6 +118,9 @@ export default function SignUp() {
                       Cancelar
                     </Button>
                   </Grid>
+                  {error ? (
+                    <FormHelperText error>{error} </FormHelperText>
+                  ) : null}
                 </Grid>
               </Grid>
             </Paper>
