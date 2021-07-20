@@ -13,11 +13,11 @@ export default function UserList() {
   const history = useHistory();
 
   function create() {
-    history.push("/cadastro-usuario");
+    history.push("/usuario/cadastro-usuario");
   }
 
   function update() {
-    history.push("/alteracao-usuario/" + selectedUser.id);
+    history.push("/usuario/alteracao-usuario/" + selectedUser.id);
   }
 
   function deleteUser() {
