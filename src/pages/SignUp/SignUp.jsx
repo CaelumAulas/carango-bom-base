@@ -1,34 +1,48 @@
-import { Grid, Button, Paper, TextField, Container } from "@material-ui/core";
-import React from "react";
-import { useParams, useHistory } from "react-router";
-import useForm from "../../hooks/useForm";
-import validate from "./SignUpValidationRules";
+import {
+  Grid,
+  Button,
+  Paper,
+  TextField,
+  Container,
+  FormHelperText,
+} from '@material-ui/core';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router';
+import useForm from '../../hooks/useForm';
+import validate from './SignUpValidationRules';
 import userService from '../../services/UserService';
 
-import "./SignUp.css";
+import './SignUp.css';
 
 export default function SignUp() {
   const history = useHistory();
   const { id } = useParams();
-  const { handleChange, handleSubmit, values, errors } = useForm(validate, submitForm);
+  const { handleChange, handleSubmit, values, errors } = useForm(
+    validate,
+    submitForm
+  );
 
   function cancel() {
-    history.push("/usuarios");
+    history.push('/usuarios');
   }
 
   async function submitForm() {
-    if (id) {
-      await userService.update(...values, id).then((res) => {
-        if (res === "Success") {
-          history.push("/usuarios");
-        }
-      });
-    } else {
-      await userService.create(values).then((res) => {
-        if (res === "Success") {
-          history.push("/usuarios");
-        }
-      });
+    try {
+      if (id) {
+        await userService.update(...values, id).then((res) => {
+          if (res === 'Success') {
+            history.push('/usuarios');
+          }
+        });
+      } else {
+        await userService.create(values).then((res) => {
+          if (res === 'Success') {
+            history.push('/usuarios');
+          }
+        });
+      }
+    } catch (e) {
+      setError(e.message);
     }
   }
 
@@ -58,7 +72,7 @@ export default function SignUp() {
                     required
                     id="password"
                     name="password"
-                    label={id ? "Nova Senha" : "Senha"}
+                    label={id ? 'Nova Senha' : 'Senha'}
                     type="password"
                     value={values.password || ''}
                     onChange={handleChange}
@@ -90,7 +104,7 @@ export default function SignUp() {
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      {id ? "Alterar" : "Cadastrar"}
+                      {id ? 'Alterar' : 'Cadastrar'}
                     </Button>
                   </Grid>
                   <Grid item sm={2}>
@@ -103,6 +117,9 @@ export default function SignUp() {
                       Cancelar
                     </Button>
                   </Grid>
+                  {error ? (
+                    <FormHelperText error>{error} </FormHelperText>
+                  ) : null}
                 </Grid>
               </Grid>
             </Paper>
