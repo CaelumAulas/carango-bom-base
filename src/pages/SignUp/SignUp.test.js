@@ -1,13 +1,8 @@
-import React from "react";
-import { Route, MemoryRouter } from "react-router-dom";
-import {
-  act,
-  render,
-  screen,
-  toBe
-} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import UserService from "../../services/UserService";
+import React from 'react';
+import { Route, MemoryRouter } from 'react-router-dom';
+import { act, render, screen, toBe } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import UserService from '../../services/UserService';
 import SignUp from './SignUp';
 
 const mockHistoryPush = jest.fn();
@@ -19,17 +14,17 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-const userCreateSpy = jest.spyOn(UserService, "create");
-const userUpdateSpy = jest.spyOn(UserService, "update");
-const userGetByIdSpy = jest.spyOn(UserService, "getById");
-const userGetAllSpy = jest.spyOn(UserService, "getAll");
+const userCreateSpy = jest.spyOn(UserService, 'create');
+const userUpdateSpy = jest.spyOn(UserService, 'update');
+const userGetByIdSpy = jest.spyOn(UserService, 'getById');
+const userGetAllSpy = jest.spyOn(UserService, 'getAll');
 
 const userMock = {
   id: 1,
-  username: "User",
-  password: "123",
-  password2: "123",
-}
+  username: 'User',
+  password: '123',
+  password2: '123',
+};
 
 userGetByIdSpy.mockResolvedValue(userMock);
 
@@ -60,13 +55,14 @@ const setup = (userId) => {
 };
 
 describe('SignUp /> rendering', () => {
-
   beforeEach(async () => {
     await act(async () => setup());
   });
 
   it('Should render <SignUp />', () => {
-    const inputUsername = screen.getByRole("textbox", { name: /Nome Completo/i });
+    const inputUsername = screen.getByRole('textbox', {
+      name: /Nome Completo/i,
+    });
     const inputPassword = screen.getByLabelText(/^Senha/i);
     const inputPassword2 = screen.getByLabelText(/Confirme sua Senha/i);
     const submitBtn = screen.getByRole('button', { name: /Cadastrar/i });
@@ -86,7 +82,9 @@ describe('SignUp /> rendering', () => {
 
   describe('Input validation', () => {
     beforeEach(async () => {
-      const inputUsername = screen.getByRole('textbox', { name: /Nome Completo/i });
+      const inputUsername = screen.getByRole('textbox', {
+        name: /Nome Completo/i,
+      });
       const inputPassword = screen.getByLabelText(/^Senha/i);
       const inputPassword2 = screen.getByLabelText(/Confirme sua Senha/i);
       const submitBtn = screen.getByRole('button', { name: /Cadastrar/i });
@@ -110,65 +108,64 @@ describe('SignUp /> rendering', () => {
 
     function usernameValidation(username) {
       if (!username) {
-        throw new Error("Preencha o nome do usuário.");
+        throw new Error('Preencha o nome do usuário.');
       } else if (username.length < 3) {
-        throw new Error("Usuário precisa ter 3 digitos ou mais.");
+        throw new Error('Usuário precisa ter 3 digitos ou mais.');
       }
     }
 
     function passwordValidation(password) {
       if (password === undefined) {
-        throw new Error("Preencha a senha do usuário.");
+        throw new Error('Preencha a senha do usuário.');
       } else if (password.length < 3) {
-        throw new Error("Senha precisa ter 3 digitos ou mais.");
+        throw new Error('Senha precisa ter 3 digitos ou mais.');
       }
     }
 
     function password2Validation(password, password2) {
       if (password2 === undefined) {
-        throw new Error("Confirme a senha do usuário.");
+        throw new Error('Confirme a senha do usuário.');
       } else if (password !== password2) {
-        throw new Error("As senhas precisam ser iguais.");
+        throw new Error('As senhas precisam ser iguais.');
       }
     }
 
     // Username
     it(`Should throw error with message \'Preencha o nome do usuário.\' when no username is provided`, () => {
       expect(() => {
-        usernameValidation()
+        usernameValidation();
       }).toThrow('Preencha o nome do usuário.');
     });
     it(`Should throw error with message \'Usuário precisa ter 3 digitos ou mais.\' when username is less than 3 digits`, async () => {
       expect(() => {
-        usernameValidation('ar')
+        usernameValidation('ar');
       }).toThrow('Usuário precisa ter 3 digitos ou mais.');
     });
 
     // Password
     it(`Should throw error with message \'Preencha a senha do usuário.\' when no password is provided`, () => {
       expect(() => {
-        passwordValidation()
+        passwordValidation();
       }).toThrow('Preencha a senha do usuário.');
     });
     it(`Should throw error with message \'Senha precisa ter 3 digitos ou mais.\' when password is less than 3 digits`, () => {
       expect(() => {
-        passwordValidation('12')
+        passwordValidation('12');
       }).toThrow('Senha precisa ter 3 digitos ou mais.');
     });
 
     // Password2
     it(`Should throw error with message \'Confirme a senha do usuário.\' when password confirmation isn't provided`, () => {
       expect(() => {
-        password2Validation('123')
+        password2Validation('123');
       }).toThrow('Confirme a senha do usuário.');
     });
     it(`Should throw error with message \'As senhas precisam ser iguais.\' when password confirmation isn't provided`, () => {
       expect(() => {
-        password2Validation('123', 'abc')
+        password2Validation('123', 'abc');
       }).toThrow('As senhas precisam ser iguais.');
     });
   });
-
 
   // describe('Button history validation', () => {
   //   beforeEach(async () => {
@@ -183,18 +180,3 @@ describe('SignUp /> rendering', () => {
   //   });
   // });
 });
-
-describe('Route update', () => {
-  beforeEach(async () => {
-    jest.clearAllMocks();
-    await act(async () => setup(userMock.id));
-  });
-
-  it('Should fetch the correct user based on ID provided', () => {
-    const inputUsername = screen.getByRole('textbox', { name: /Nome Completo/i });
-    const inputPassword = screen.getByLabelText(/^Nova Senha/i);
-    const inputPassword2 = screen.getByLabelText(/Confirme sua Senha/i);
-
-    expect(inputUsername.value).toStrictEqual(userMock.username);
-  })
-})
