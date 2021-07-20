@@ -36,17 +36,15 @@ function BrandRegister() {
     history.push('/marcas');
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     if (possoEnviar()) {
       if (id) {
-        BrandService.update({ id, nome: brand }).then((res) => {
-          history.push('/marcas');
-        });
+        await BrandService.update({ id, nome: brand });
+        history.push('/marcas');
       } else {
-        BrandService.create({ nome: brand }).then((res) => {
-          history.push('/marcas');
-        });
+        await BrandService.create({ nome: brand });
+        history.push('/marcas');
       }
     }
   }
