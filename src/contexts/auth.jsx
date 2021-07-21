@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const storagedToken = sessionStorage.getItem('@App:token');
     if (storagedToken) {
-      setToken(JSON.parse(storagedToken));
+      setToken(storagedToken);
     }
     setIsLoading(false);
   }, []);
@@ -23,7 +23,6 @@ export function AuthProvider({ children }) {
 
   function Logout() {
     setToken(null);
-    sessionStorage.removeItem('@App:token');
     sessionStorage.removeItem('@App:token');
   }
 
