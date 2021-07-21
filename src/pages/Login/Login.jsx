@@ -5,14 +5,14 @@ import { useAuth } from '../../contexts/auth';
 import './Login.css';
 
 function Login() {
-  const [login, setLogin] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
   const { Authenticate } = useAuth();
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await Authenticate({ login, password });
+    await Authenticate({ username, password });
     history.push('/marcas');
   }
 
@@ -20,8 +20,8 @@ function Login() {
     <Container maxWidth="sm">
       <form onSubmit={handleSubmit}>
         <TextField
-          value={login}
-          onChange={(evt) => setLogin(evt.target.value)}
+          value={username}
+          onChange={(evt) => setUsername(evt.target.value)}
           variant="outlined"
           margin="normal"
           required
