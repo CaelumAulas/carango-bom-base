@@ -4,7 +4,7 @@ import UserService from '../../services/UserService';
 
 import Table from '../../components/Table/Table';
 
-const columns = [{ field: 'nome', headerName: 'Nome', width: 200 }];
+const columns = [{ field: 'username', headerName: 'Nome', width: 200 }];
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
@@ -25,8 +25,9 @@ export default function UserList() {
     setSelectedUser(null);
   }
 
-  function fetchUsers() {
-    UserService.getAll();
+  async function fetchUsers() {
+    const users = await UserService.getAll();
+    setUsers(users);
   }
 
   useEffect(() => fetchUsers(), []);
