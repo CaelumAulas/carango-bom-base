@@ -10,13 +10,7 @@ import Login from './Login';
 
 describe('<Login/>', () => {
   const responseResolved = {
-    data: {
-      token: '91j893h281h9nf98fnf2309jd09jkkd0as98238j9fr8j98f9j8f298r829r-f',
-      user: {
-        name: 'Daniel',
-        email: 'daniel@tw.com',
-      },
-    },
+    token: '91j893h281h9nf98fnf2309jd09jkkd0as98238j9fr8j98f9j8f298r829r-f',
   };
   const history = createMemoryHistory();
   const authSpy = jest.spyOn(AuthService, 'loginTest');
@@ -75,11 +69,9 @@ describe('<Login/>', () => {
       userEvent.click(screen.getByRole('button', { name: /logar/i }))
     );
 
-    const storageUser = JSON.parse(window.sessionStorage.getItem('@App:user'));
     const storageToken = window.sessionStorage.getItem('@App:token');
 
-    expect(storageUser).toStrictEqual(responseResolved.data.user);
-    expect(storageToken).toStrictEqual(responseResolved.data.token);
+    expect(storageToken).toStrictEqual(responseResolved.token);
   });
 
   it('Should redirect the user to "/cadastrar" when click register button', () => {

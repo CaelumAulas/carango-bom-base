@@ -4,36 +4,34 @@ import AuthService from '../services/AuthService';
 const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storagedUser = sessionStorage.getItem('@App:user');
     const storagedToken = sessionStorage.getItem('@App:token');
-    if (storagedToken && storagedUser) {
-      setUser(JSON.parse(storagedUser));
+    if (storagedToken) {
+      setToken(JSON.parse(storagedToken));
     }
     setIsLoading(false);
   }, []);
 
   async function Login(credentials) {
     const response = await AuthService.login(credentials);
-    setUser(response.data);
-    sessionStorage.setItem('@App:user', JSON.stringify(response.data.user));
-    sessionStorage.setItem('@App:token', response.data.token);
+    setToken(response.token);
+    sessionStorage.setItem('@App:token', response.token);
   }
 
   function Logout() {
-    setUser(null);
-    sessionStorage.removeItem('@App:user');
+    setToken(null);
+    sessionStorage.removeItem('@App:token');
     sessionStorage.removeItem('@App:token');
   }
 
   return (
     <AuthContext.Provider
       value={{
-        signed: Boolean(user),
-        user,
+        signed: Boolean(token),
+        token,
         Authenticate: Login,
         Logout,
         isLoading,
