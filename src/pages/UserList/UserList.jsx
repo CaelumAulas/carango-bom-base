@@ -26,9 +26,7 @@ export default function UserList() {
   }
 
   function fetchUsers() {
-    UserService.getAll().then((data) => {
-      setUsers([{ id: 0, nome: 'Teste da Silva' }]);
-    });
+    UserService.getAll();
   }
 
   useEffect(() => fetchUsers(), []);

@@ -55,7 +55,7 @@ function Login() {
           <Grid item xs={6}>
             <Button
               component={Link}
-              to={{ pathname: '/cadastrar/' }}
+              to={{ pathname: '/cadastrar' }}
               type="button"
               fullWidth
               variant="contained"

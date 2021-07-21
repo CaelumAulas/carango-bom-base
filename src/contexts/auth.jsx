@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function Login(credentials) {
-    const response = await AuthService.loginTest(credentials);
+    const response = await AuthService.login(credentials);
     setUser(response.data);
     sessionStorage.setItem('@App:user', JSON.stringify(response.data.user));
     sessionStorage.setItem('@App:token', response.data.token);

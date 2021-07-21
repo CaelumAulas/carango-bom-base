@@ -7,7 +7,7 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import useForm from '../../hooks/useForm';
 import validate from './SignUpValidationRules';
 import userService from '../../services/UserService';
@@ -17,7 +17,6 @@ import './SignUp.css';
 export default function SignUp() {
   const history = useHistory();
   const [error, setError] = useState('');
-  const { id } = useParams();
   const { handleChange, handleSubmit, values, errors } = useForm(
     validate,
     submitForm
@@ -29,19 +28,8 @@ export default function SignUp() {
 
   async function submitForm() {
     try {
-      if (id) {
-        await userService.update(...values, id).then((res) => {
-          if (res === 'Success') {
-            history.push('/usuarios');
-          }
-        });
-      } else {
-        await userService.create(values).then((res) => {
-          if (res === 'Success') {
-            history.push('/usuarios');
-          }
-        });
-      }
+      await userService.create(values)
+      history.push('/usuarios');
     } catch (e) {
       setError(e.message);
     }
@@ -73,7 +61,7 @@ export default function SignUp() {
                     required
                     id="password"
                     name="password"
-                    label={id ? 'Nova Senha' : 'Senha'}
+                    label={'Senha'}
                     type="password"
                     value={values.password || ''}
                     onChange={handleChange}
@@ -105,7 +93,7 @@ export default function SignUp() {
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      {id ? 'Alterar' : 'Cadastrar'}
+                      Cadastrar
                     </Button>
                   </Grid>
                   <Grid item sm={2}>

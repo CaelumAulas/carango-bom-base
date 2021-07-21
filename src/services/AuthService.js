@@ -1,6 +1,8 @@
+import { API_URL } from '../Constants';
+
 const AuthService = {
   login(credentials) {
-    return fetch('https://carago-bom-api.com/auth', {
+    return fetch(API_URL + '/auth', {
       method: 'POST',
       body: JSON.stringify(credentials),
     }).then((response) => response.json());
