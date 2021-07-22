@@ -37,13 +37,13 @@ describe('<BrandList />', () => {
   });
 
   it('Should redirect to "cadastro-marca" when press "incluir" button', () => {
-    const createBtn = screen.getByRole('button', { name: 'Incluir' });
+    const createBtn = screen.getByRole('button', { name: /Incluir/i });
     userEvent.click(createBtn);
     expect(history.location.pathname).toBe('/marca/cadastro-marca');
   });
 
   it('Should redirect to brand update route when user click on update button', async () => {
-    const updateBtn = screen.getByRole('button', { name: 'Alterar' });
+    const updateBtn = screen.getByRole('button', { name: /Alterar/i });
     const brandSelected = await screen.findByText(brandsMock[0].nome);
     userEvent.click(brandSelected);
     userEvent.click(updateBtn);
@@ -54,7 +54,7 @@ describe('<BrandList />', () => {
   });
 
   it('Should delete item', async () => {
-    const deleteBtn = screen.getByRole('button', { name: 'Excluir' });
+    const deleteBtn = screen.getByRole('button', { name: /Excluir/i });
     const brandSelected = await screen.findByText(brandsMock[0].nome);
     userEvent.click(brandSelected);
     userEvent.click(deleteBtn);

@@ -13,9 +13,9 @@ describe('<Login/>', () => {
     token: '91j893h281h9nf98fnf2309jd09jkkd0as98238j9fr8j98f9j8f298r829r-f',
   };
   const history = createMemoryHistory();
-  const authSpy = jest.spyOn(AuthService, 'loginTest');
+  const authSpy = jest.spyOn(AuthService, 'login');
   authSpy.mockResolvedValue(responseResolved);
-  const userTest = { login: 'teste@example.com', password: '12345' };
+  const userTest = { username: 'teste@example.com', password: '12345' };
   const setup = () =>
     render(
       <AuthProvider>
@@ -45,8 +45,8 @@ describe('<Login/>', () => {
   });
 
   it('Should call login with the correct credentials', async () => {
-    const { login, password } = userTest;
-    userEvent.type(screen.getByRole('textbox', { name: /Email/i }), login);
+    const { username, password } = userTest;
+    userEvent.type(screen.getByRole('textbox', { name: /Email/i }), username);
     userEvent.type(screen.getByText('Password'), password);
 
     await act(async () =>
@@ -54,15 +54,15 @@ describe('<Login/>', () => {
     );
     expect(authSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        login,
+        username,
         password,
       })
     );
   });
 
   it('Should have user credentials on localstorage', async () => {
-    const { login, password } = userTest;
-    userEvent.type(screen.getByRole('textbox', { name: /Email/i }), login);
+    const { username, password } = userTest;
+    userEvent.type(screen.getByRole('textbox', { name: /Email/i }), username);
     userEvent.type(screen.getByText('Password'), password);
 
     await act(async () =>
@@ -78,6 +78,6 @@ describe('<Login/>', () => {
     const registerBtn = screen.getByRole('button', { name: /registrar/i });
     userEvent.click(registerBtn);
 
-    expect(history.location.pathname).toBe('/cadastrar/');
+    expect(history.location.pathname).toBe('/cadastrar');
   });
 });
