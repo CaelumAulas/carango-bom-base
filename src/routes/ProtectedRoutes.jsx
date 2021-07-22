@@ -6,6 +6,7 @@ import BrandList from '../pages/Brand/BrandList/BrandList';
 import BrandRegister from '../pages/Brand/BrandRegister/BrandRegister';
 import VehicleList from '../pages/Vehicle/VehicleList/VehicleList';
 import VehicleRegister from '../pages/Vehicle/VehicleRegister/VehicleRegister';
+import Dashboard from '../pages/Dashboard/Dashboard';
 
 function PrivateRoute({ children, ...rest }) {
   const { signed } = useAuth();
@@ -51,6 +52,9 @@ function ProtectedRoutes() {
       </PrivateRoute>
       <PrivateRoute path="/veiculos">
         <VehicleList />
+      </PrivateRoute>
+      <PrivateRoute path="/dashboard">
+        <Dashboard />
       </PrivateRoute>
       <Route path="*">
         <Redirect to="/marcas" />
