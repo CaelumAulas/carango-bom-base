@@ -1,30 +1,30 @@
-import { Container, CssBaseline, makeStyles } from '@material-ui/core';
-import blue from '@material-ui/core/colors/blue';
+import React, { useEffect, useState } from 'react';
+import {Container, createTheme, CssBaseline, makeStyles} from '@material-ui/core';
 import { ptBR } from '@material-ui/core/locale';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { Switch, BrowserRouter as Router } from 'react-router-dom';
+import MenuLateral from './components/MenuLateral/MenuLateral.jsx';
 import './App.css';
-import CadastroMarca from './pages/CadastroMarca';
-import ListagemMarcas from './pages/ListagemMarcas';
+import Routes from './routes/Routes.js';
+import SectionContext from './hooks/SectionContext';
 
-const muiTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: blue[900],
-    }
+const Theme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#333333',
+      },
+      secondary: {
+        main: '#EFF0F2',
+      },
+    },
   },
-}, ptBR);
+  ptBR
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
+    height: '100vh',
   },
   content: {
     flexGrow: 1,
@@ -34,31 +34,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-
   const classes = useStyles();
 
+  const [temPermissoes, setTemPermissoes] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if(token) {
+      setTemPermissoes(true);
+    }
+    
+  }, [])
+
   return (
-    <ThemeProvider theme={muiTheme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Container component="article" maxWidth="md">
-            <Switch>
-              <Route path="/cadastro-marca">
-                <CadastroMarca></CadastroMarca>
-              </Route>
-              <Route path='/alteracao-marca/:id'>
-                <CadastroMarca></CadastroMarca>
-              </Route>
-              <Route path="/">
-                <ListagemMarcas></ListagemMarcas>
-              </Route>
-            </Switch>
-          </Container>
-        </main>
-      </div>
-    </ThemeProvider>
+    <SectionContext.Provider value={[temPermissoes, setTemPermissoes]}>
+      <Router>
+        <ThemeProvider theme={Theme}>
+          <div className={classes.root}>
+            <CssBaseline />
+            <MenuLateral className={classes.content}>
+              <Container component="article" maxWidth="md">
+                <Switch>
+                  <Routes />
+                </Switch>
+              </Container>
+            </MenuLateral>
+          </div>
+        </ThemeProvider>
+      </Router>
+    </SectionContext.Provider>
   );
 }
 

@@ -1,0 +1,22 @@
+{
+  "git.ignoreLimitWarning": true,
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "html.format.indentHandlebars": true,
+  "html.format.maxPreserveNewLines": 0,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "react"
+  ],
+  "cSpell.ignoreWords": [
+    "cadastro",
+    "form",
+    "marca",
+    "testid",
+    "veiculos"
+  ]
+}
